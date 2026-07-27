@@ -6,9 +6,10 @@ import crypto from 'crypto';
  * Uses timingSafeEqual to avoid timing leaks.
  */
 export function verifyOrderSignature({ razorpayOrderId, razorpayPaymentId, signature }, secret) {
-  if (!razorpayOrderId || !razorpayPaymentId || !signature || !secret) return false;
+  const cleanSecret = secret?.trim()?.replace(/^["']|["']$/g, '');
+  if (!razorpayOrderId || !razorpayPaymentId || !signature || !cleanSecret) return false;
   const expected = crypto
-    .createHmac('sha256', secret)
+    .createHmac('sha256', cleanSecret)
     .update(`${razorpayOrderId}|${razorpayPaymentId}`)
     .digest('hex');
   try {
@@ -26,8 +27,9 @@ export function verifyOrderSignature({ razorpayOrderId, razorpayPaymentId, signa
  * Razorpay signs the entire raw request body with the webhook secret.
  */
 export function verifyWebhookSignature(rawBody, signature, secret) {
-  if (!rawBody || !signature || !secret) return false;
-  const expected = crypto.createHmac('sha256', secret).update(rawBody).digest('hex');
+  const cleanSecret = secret?.trim()?.replace(/^["']|["']$/g, '');
+  if (!rawBody || !signature || !cleanSecret) return false;
+  const expected = crypto.createHmac('sha256', cleanSecret).update(rawBody).digest('hex');
   try {
     const a = Buffer.from(signature);
     const b = Buffer.from(expected);

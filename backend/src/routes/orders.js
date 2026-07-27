@@ -12,13 +12,10 @@ const router = express.Router();
 // Single Razorpay client. If keys are missing, endpoints fail loudly (no silent demo).
 let razorpay = null;
 function getRazorpay() {
-  if (!razorpay && process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
-    razorpay = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_KEY_SECRET,
-    });
-  }
-  return razorpay;
+  const key_id = process.env.RAZORPAY_KEY_ID?.trim()?.replace(/^["']|["']$/g, '');
+  const key_secret = process.env.RAZORPAY_KEY_SECRET?.trim()?.replace(/^["']|["']$/g, '');
+  if (!key_id || !key_secret) return null;
+  return new Razorpay({ key_id, key_secret });
 }
 
 function getProductId(product) {
@@ -170,7 +167,7 @@ router.post('/checkout', protect, async (req, res) => {
       razorpayOrderId: razorpayOrder.id,
       amount: razorpayOrder.amount,
       currency: 'INR',
-      key: process.env.RAZORPAY_KEY_ID,
+      key: process.env.RAZORPAY_KEY_ID?.trim()?.replace(/^["']|["']$/g, ''),
     });
   } catch (err) {
     console.error('Checkout error:', err);
