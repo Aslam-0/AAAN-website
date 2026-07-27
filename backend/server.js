@@ -47,6 +47,8 @@ app.use(cors());
 app.use(compression());
 
 app.post('/api/orders/webhook', express.raw({ type: 'application/json' }), razorpayWebhookHandler);
+app.post('/razorpay/webhook', express.raw({ type: 'application/json' }), razorpayWebhookHandler);
+app.post('/api/razorpay/webhook', express.raw({ type: 'application/json' }), razorpayWebhookHandler);
 
 app.use(express.json());
 

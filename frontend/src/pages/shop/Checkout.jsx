@@ -59,6 +59,14 @@ export default function CheckoutPage() {
   }
 
   const openRazorpay = (result) => {
+    if (!window.Razorpay) {
+      const msg = 'Razorpay payment SDK failed to load. Please refresh the page or check your connection.';
+      setError(msg);
+      toastError('Payment failed', msg);
+      setLoading(false);
+      return;
+    }
+
     const rzp = new window.Razorpay({
       key: result.key,
       amount: result.amount,
@@ -107,6 +115,11 @@ export default function CheckoutPage() {
       const result = await checkout(payload, form);
       openRazorpay(result);
     } catch (err) {
+      if (err.status === 401) {
+        toastError('Session Expired', 'Please log in to complete your purchase.');
+        navigate('/login', { state: { from: '/checkout' } });
+        return;
+      }
       setError(err.message);
       toastError('Checkout failed', err.message);
       setLoading(false);

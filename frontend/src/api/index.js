@@ -19,7 +19,10 @@ async function apiFetch(path, options = {}) {
   const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const error = new Error(data.message || 'Request failed');
+    const defaultMsg = res.status === 401 
+      ? 'Session expired or login required. Please log in.' 
+      : `Server error (${res.status} ${res.statusText || ''})`.trim();
+    const error = new Error(data.message || data.error || defaultMsg);
     error.status = res.status;
     error.data = data;
     throw error;

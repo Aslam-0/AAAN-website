@@ -117,7 +117,7 @@ router.post('/checkout', protect, async (req, res) => {
   try {
     const rzp = getRazorpay();
     if (!rzp) {
-      return res.status(500).json({ message: 'Razorpay not configured' });
+      return res.status(500).json({ message: 'Razorpay API credentials (RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET) not configured on Render environment.' });
     }
 
     const { items, shippingAddress } = req.body;
@@ -173,7 +173,9 @@ router.post('/checkout', protect, async (req, res) => {
       key: process.env.RAZORPAY_KEY_ID,
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('Checkout error:', err);
+    const errorMsg = err?.error?.description || err?.message || 'Razorpay checkout failed';
+    res.status(500).json({ message: errorMsg });
   }
 });
 
