@@ -32,7 +32,8 @@ function Stars({ value = 0, size = 16, onChange }) {
   );
 }
 
-export default function ReviewSection({ product }) {
+export default function ReviewSection({ product, productId }) {
+  const targetId = productId || product?._id || (typeof product === 'string' ? product : null);
   const { user, isAuthenticated } = useAuth();
   const [data, setData] = useState({ reviews: [], total: 0, page: 1, pages: 1 });
   const [loading, setLoading] = useState(true);
@@ -50,27 +51,30 @@ export default function ReviewSection({ product }) {
   const [error, setError] = useState('');
 
   const loadReviews = () => {
+    if (!targetId) return;
     setLoading(true);
-    fetchProductReviews(product._id)
+    fetchProductReviews(targetId)
       .then(setData)
       .catch(() => {})
       .finally(() => setLoading(false));
   };
 
   const loadMyReview = () => {
-    if (!isAuthenticated) { setMyReview(null); return; }
+    if (!isAuthenticated || !targetId) { setMyReview(null); return; }
     setMyReviewLoading(true);
-    fetchMyReview(product._id)
+    fetchMyReview(targetId)
       .then(setMyReview)
       .catch(() => setMyReview(null))
       .finally(() => setMyReviewLoading(false));
   };
 
   useEffect(() => {
-    loadReviews();
-    loadMyReview();
+    if (targetId) {
+      loadReviews();
+      loadMyReview();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product._id, isAuthenticated]);
+  }, [targetId, isAuthenticated]);
 
   const resetForm = () => {
     setRating(myReview?.rating || 0);

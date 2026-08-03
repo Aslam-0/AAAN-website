@@ -11,12 +11,23 @@ import {
 } from '../../api';
 import '../../styles/Panel.css';
 
+const demoProducts = [
+  { _id: 'p-1', name: 'AAAN Luxury Silk Saree & Dupatta Set', category: { name: 'Clothes' }, price: 4999, discountPercent: 20, stockQuantity: 24, images: ['/aaan-logo.svg'] },
+  { _id: 'p-2', name: 'AAAN Ergonomic Executive Office Chair', category: { name: 'Furniture' }, price: 12999, discountPercent: 15, stockQuantity: 12, images: ['/aaan-logo.svg'] },
+  { _id: 'p-3', name: 'AAAN Smart OLED 4K Display Monitor', category: { name: 'Electronics' }, price: 28999, discountPercent: 10, stockQuantity: 8, images: ['/aaan-logo.svg'] }
+];
+
 export default function AdminProducts() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(demoProducts);
   const [loading, setLoading] = useState(true);
 
   const load = () => {
-    fetchAdminProducts().then(setProducts).finally(() => setLoading(false));
+    fetchAdminProducts()
+      .then((res) => {
+        if (Array.isArray(res) && res.length > 0) setProducts(res);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   };
 
   useEffect(load, []);

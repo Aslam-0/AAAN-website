@@ -1,54 +1,70 @@
 /* =========================================
-   GLOBAL DESIGN TOKENS — Premium Upgrade
+   GLOBAL DESIGN TOKENS — NovaShop & Meesho Purple Theme
    ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Sky Blue Palette */
-  --rose-gold: #3b82f6;        /* primary blue */
-  --rose-gold-light: #93c5fd;  /* light blue */
-  --rose-gold-dark: #2563eb;   /* deep blue */
-  --rose-gold-deep: #1d4ed8;
-  --peach: #e0f2fe;
-  --peach-light: #f0f9ff;
-  --cream: #f8fafc;
-  --warm-beige: #e2e8f0;
+  /* NovaShop Primary Purple Palette */
+  --rose-gold: #6C5CE7;
+  --rose-gold-light: #8075E5;
+  --rose-gold-dark: #5A4AD1;
+  --rose-gold-deep: #4834D4;
+  --primary-purple: #6C5CE7;
+  --primary-purple-light: #EEECFE;
+  --primary-purple-subtle: #F5F3FF;
+  --primary-purple-glow: rgba(108, 92, 231, 0.25);
+  
+  /* Meesho Theme Accents */
+  --meesho-pink: #9f2089;
+  --meesho-pink-dark: #7a1568;
+  --meesho-pink-light: #fdf2fb;
+  --meesho-gradient: linear-gradient(135deg, #9f2089 0%, #6C5CE7 100%);
+  
+  /* Soft Pastels */
+  --peach: #FFF0F5;
+  --peach-light: #FDF4F8;
+  --cream: #F8FAFC;
+  --warm-beige: #F1F5F9;
   --white: #FFFFFF;
-  --off-white: #f8fbff;
-  --bg-subtle: #f1f6fc;
-  --text-dark: #1e293b;
-  --text-muted: #64748b;
-  --text-light: #94a3b8;
-  --border: #e2e8f0;
-  --shadow: 0 4px 24px rgba(59, 130, 246, 0.1);
-  --shadow-md: 0 8px 32px rgba(59, 130, 246, 0.12);
-  --shadow-lg: 0 16px 56px rgba(59, 130, 246, 0.15);
-  --shadow-xl: 0 32px 80px rgba(59, 130, 246, 0.2);
+  --off-white: #F8FAFC;
+  --bg-subtle: #F5F6FA;
+  
+  /* Text & Borders */
+  --text-dark: #1E1B4B;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+  
+  /* Shadows & Radius */
+  --shadow: 0 4px 20px rgba(108, 92, 231, 0.08);
+  --shadow-md: 0 8px 30px rgba(108, 92, 231, 0.12);
+  --shadow-lg: 0 16px 40px rgba(108, 92, 231, 0.16);
+  --shadow-xl: 0 24px 60px rgba(108, 92, 231, 0.22);
   --radius: 20px;
   --radius-sm: 12px;
   --radius-xs: 8px;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Outfit', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
   /* Gradient presets */
-  --gradient-sky: linear-gradient(135deg, #93c5fd 0%, #60a5fa 50%, #3b82f6 100%);
-  --gradient-fresh: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  --gradient-dark: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  --gradient-purple: linear-gradient(135deg, #8075E5 0%, #6C5CE7 50%, #5A4AD1 100%);
+  --gradient-hero: linear-gradient(135deg, #EBE6FF 0%, #D8CEFF 50%, #C4B5FD 100%);
+  --gradient-card: linear-gradient(135deg, #F9F8FF 0%, #F1EEFE 100%);
+  --gradient-dark: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
 
-  /* Neumorphic surface (must match the section bg behind cards) */
-  --neu-surface: #eef4fb;
+  /* Neumorphic & Glossy surfaces */
+  --neu-surface: #F5F6FA;
   --neu-shadow-light: rgba(255, 255, 255, 0.95);
-  --neu-shadow-dark: rgba(99, 132, 173, 0.32);
-  --neu-out: 9px 9px 20px var(--neu-shadow-dark), -9px -9px 20px var(--neu-shadow-light);
-  --neu-out-sm: 6px 6px 14px var(--neu-shadow-dark), -6px -6px 14px var(--neu-shadow-light);
-  --neu-in: inset 5px 5px 12px var(--neu-shadow-dark), inset -5px -5px 12px var(--neu-shadow-light);
-  --sky-glow: 0 0 0 1px rgba(59, 130, 246, 0.18), 0 14px 36px rgba(59, 130, 246, 0.22);
+  --neu-shadow-dark: rgba(108, 92, 231, 0.15);
+  --neu-out: 8px 8px 18px var(--neu-shadow-dark), -8px -8px 18px var(--neu-shadow-light);
+  --sky-glow: 0 0 0 1px rgba(108, 92, 231, 0.18), 0 14px 36px rgba(108, 92, 231, 0.22);
 
-  /* Sky-blue alias tokens (used across legacy components) */
-  --sky-blue: #3b82f6;
-  --sky-blue-light: #dbeafe;
-  --sky-blue-dark: #2563eb;
-  --sky-blue-deep: #1d4ed8;
+  /* Legacy aliases for blue */
+  --sky-blue: #6C5CE7;
+  --sky-blue-light: #EEECFE;
+  --sky-blue-dark: #5A4AD1;
+  --sky-blue-deep: #4834D4;
 }
 
 *, *::before, *::after {

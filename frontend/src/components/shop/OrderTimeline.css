@@ -1,0 +1,139 @@
+/* =========================================
+   AAAN ENTERPRISES — Order Timeline Styling
+   ========================================= */
+
+.order-timeline-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid #F1F5F9;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  margin: 16px 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.timeline-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.timeline-heading {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.courier-badge {
+  background: #EEF2FF;
+  color: #4F46E5;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* Stepper Track */
+.timeline-stepper-track {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  position: relative;
+}
+
+.timeline-step-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.step-icon-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+}
+
+.timeline-step-node.done .step-icon-circle {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.timeline-step-node.current .step-icon-circle {
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35);
+  transform: scale(1.15);
+}
+
+.step-line {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  background: #E2E8F0;
+  z-index: 1;
+}
+
+.step-line.done {
+  background: #10B981;
+}
+
+.step-label-box {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.step-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.step-desc {
+  font-size: 0.7rem;
+  color: #64748B;
+  line-height: 1.2;
+}
+
+.step-time {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #4F46E5;
+  margin-top: 4px;
+}
+
+@media (max-width: 800px) {
+  .timeline-stepper-track {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .timeline-step-node {
+    flex-direction: row;
+    text-align: left;
+    gap: 14px;
+  }
+  .step-line {
+    top: 42px;
+    left: 20px;
+    width: 3px;
+    height: 100%;
+  }
+}

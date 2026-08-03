@@ -1,12 +1,16 @@
+import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Package, Heart, ShoppingBag, LogOut, Shield, User } from 'lucide-react';
+import { Package, Heart, ShoppingBag, LogOut, Shield, User, Menu, X, Award, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Navbar from '../../components/layout/Navbar';
+import Footer from '../../components/layout/Footer';
 import '../../styles/Panel.css';
+import './CustomerDashboard.css';
 
 export default function AccountLayout() {
   const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -14,54 +18,87 @@ export default function AccountLayout() {
   };
 
   return (
-    <>
+    <div className="account-page-wrapper" style={{ background: '#F8FAFC', minHeight: '100vh' }}>
       <Navbar />
-      <div className="panel-layout">
-        <aside className="panel-sidebar">
-          <div className="panel-sidebar-header" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '4px' }}>
+
+      {/* Mobile Top Bar (Visible ≤ 900px) */}
+      <div className="customer-mobile-topbar">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <button className="cust-menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+          <span style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0F172A' }}>My Account Menu</span>
+        </div>
+
+        <div className="vip-chip-sm">
+          <Award size={14} color="#FFE600" /> Gold VIP
+        </div>
+      </div>
+
+      {/* Off-canvas Overlay */}
+      {mobileMenuOpen && (
+        <div className="cust-overlay-backdrop" onClick={() => setMobileMenuOpen(false)} />
+      )}
+
+      <div className="panel-layout container" style={{ paddingTop: '24px', paddingBottom: '60px' }}>
+        
+        {/* Customer Sidebar Drawer */}
+        <aside className={`panel-sidebar cust-account-sidebar ${mobileMenuOpen ? 'open' : ''}`}>
+          
+          <div className="panel-sidebar-header cust-profile-box">
             {user?.photoUrl ? (
               <img 
                 src={user.photoUrl} 
                 alt={user.name} 
-                style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover', marginBottom: '8px', border: '3px solid var(--sky-blue-light)' }} 
+                className="cust-avatar-img"
               />
             ) : (
-              <div 
-                style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--off-white)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: '2rem', fontWeight: 'bold', marginBottom: '8px', border: '2px solid var(--border)' }}
-              >
+              <div className="cust-avatar-placeholder">
                 {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
             )}
-            <h2 style={{ fontSize: '1.25rem', margin: 0 }}>My Account</h2>
-            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>{user?.name}</p>
+            
+            <h2 className="cust-name">{user?.name || 'Valued Customer'}</h2>
+            <p className="cust-email">{user?.email || 'customer@aaanenterprises.com'}</p>
+
+            <div className="cust-vip-badge-row">
+              <Award size={14} color="#F59E0B" />
+              <span>🥇 Gold VIP Member</span>
+            </div>
           </div>
-          <nav className="panel-nav">
-            <NavLink to="/account" end>
-              <Package size={18} /> Order History
+
+          <nav className="panel-nav cust-nav-links">
+            <NavLink to="/account" end onClick={() => setMobileMenuOpen(false)}>
+              <Package size={18} /> Dashboard &amp; Live Tracking
             </NavLink>
-            <NavLink to="/account/wishlist">
-              <Heart size={18} /> Wishlist
+            <NavLink to="/account/wishlist" onClick={() => setMobileMenuOpen(false)}>
+              <Heart size={18} /> Wishlist &amp; Saved
             </NavLink>
-            <NavLink to="/account/settings">
-              <User size={18} /> Settings
+            <NavLink to="/account/settings" onClick={() => setMobileMenuOpen(false)}>
+              <User size={18} /> Account Settings
             </NavLink>
-            <NavLink to="/cart">
-              <ShoppingBag size={18} /> Cart
+            <NavLink to="/cart" onClick={() => setMobileMenuOpen(false)}>
+              <ShoppingBag size={18} /> Shopping Cart
             </NavLink>
             {isAdmin && (
-              <NavLink to="/admin">
-                <Shield size={18} /> Admin Panel
+              <NavLink to="/admin" onClick={() => setMobileMenuOpen(false)}>
+                <Shield size={18} /> Admin Control Panel
               </NavLink>
             )}
-            <button onClick={handleLogout}>
-              <LogOut size={18} /> Sign Out
+            <button onClick={handleLogout} className="btn-cust-logout">
+              <LogOut size={18} /> Sign Out Account
             </button>
           </nav>
+
         </aside>
-        <main className="panel-content">
+
+        <main className="panel-content cust-main-content">
           <Outlet />
         </main>
+
       </div>
-    </>
+
+      <Footer />
+    </div>
   );
 }

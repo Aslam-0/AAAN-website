@@ -1,0 +1,238 @@
+/* =========================================
+   AAAN ENTERPRISES — Marketing & Growth Hub Styling
+   ========================================= */
+
+.aaan-mktg-studio-shell {
+  padding: 8px 0 40px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #0F172A;
+}
+
+/* Hero */
+.mktg-studio-hero {
+  background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #4F46E5 100%);
+  border-radius: 28px;
+  padding: 28px 36px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.2);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.mktg-hub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.mktg-studio-hero h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 4px 0 6px;
+}
+
+.mktg-studio-hero p {
+  opacity: 0.88;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.mktg-kpi-pill {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 10px 18px;
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.mktg-kpi-pill span {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.mktg-kpi-pill strong {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #FFE600;
+}
+
+/* Tabs Bar */
+.mktg-tabs-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 24px;
+  padding-bottom: 4px;
+}
+
+.mktg-tab {
+  background: #FFFFFF;
+  color: #475569;
+  border: 1.5px solid #E2E8F0;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.mktg-tab.active {
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+}
+
+/* Grid Layout */
+.mktg-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Cards */
+.mktg-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #F1F5F9;
+  margin-bottom: 24px;
+}
+
+.mktg-card-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 16px;
+}
+
+.mktg-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.mktg-input, .mktg-select, .mktg-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1.5px solid #E2E8F0;
+  font-size: 0.9rem;
+  outline: none;
+  background: #F8FAFC;
+  font-family: inherit;
+}
+
+.mktg-input:focus, .mktg-select:focus, .mktg-textarea:focus {
+  border-color: #6366F1;
+  background: #FFFFFF;
+}
+
+.btn-mktg-primary {
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: white;
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 14px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  margin-top: 6px;
+}
+
+/* Table */
+.coupons-table-wrap {
+  overflow-x: auto;
+}
+
+.mktg-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mktg-table th, .mktg-table td {
+  padding: 12px;
+  border-bottom: 1px solid #F1F5F9;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.mktg-table th {
+  background: #F8FAFC;
+  color: #475569;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.status-chip {
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+}
+
+.status-chip.active { background: #DCFCE7; color: #15803D; }
+.status-chip.inactive { background: #FEF2F2; color: #991B1B; }
+
+/* Stat Box */
+.stat-box-card {
+  background: #F8FAFC;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #F1F5F9;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-box-card span { font-size: 0.78rem; color: #64748B; }
+.stat-box-card strong { font-size: 1.2rem; color: #4F46E5; }
+
+/* Loyalty Tier Cards */
+.tier-card {
+  background: #F8FAFC;
+  border-radius: 20px;
+  padding: 20px;
+  border: 2px solid #E2E8F0;
+}
+
+.tier-card h4 { font-size: 1.1rem; margin: 0 0 4px; }
+.tier-card p { font-size: 0.8rem; color: #64748B; margin: 0 0 12px; }
+.tier-card ul { padding-left: 18px; margin: 0; font-size: 0.82rem; color: #334155; }
+
+.tier-card.silver { border-color: #94A3B8; }
+.tier-card.gold { border-color: #F59E0B; background: #FFFBEB; }
+.tier-card.platinum { border-color: #8B5CF6; background: #F3E8FF; }
+
+@media (max-width: 900px) {
+  .mktg-grid {
+    grid-template-columns: 1fr;
+  }
+}

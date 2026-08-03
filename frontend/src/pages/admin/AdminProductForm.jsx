@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Upload, X, ImagePlus } from 'lucide-react';
-import { fetchAdminCategories, createProduct, updateProduct, fetchAdminProducts } from '../../api';
+import { Upload, X, ImagePlus, Sparkles, RefreshCw, ShieldCheck, Truck, Check, Eye, Tag, DollarSign, Wand2 } from 'lucide-react';
+import { fetchAdminCategories, createProduct, updateProduct, fetchAdminProducts, formatPrice } from '../../api';
+import AaanLogo from '../../components/common/AaanLogo';
+import AdminAiGenerator from './AdminAiGenerator';
+import { toastSuccess } from '../../utils/toast.js';
 import '../../styles/Panel.css';
 import '../auth/Auth.css';
 import './AdminProductForm.css';
@@ -11,6 +14,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
 const emptyForm = {
   name: '',
+  sku: '',
   description: '',
   price: '',
   originalPrice: '',
@@ -18,6 +22,8 @@ const emptyForm = {
   stockQuantity: 50,
   discountPercent: 0,
   bestseller: false,
+  warranty: '1 Year AAAN Official Warranty',
+  shippingType: 'Free Express Shipping',
 };
 
 export default function AdminProductForm() {
@@ -27,22 +33,58 @@ export default function AdminProductForm() {
   const fileRef = useRef(null);
 
   const [categories, setCategories] = useState([]);
-  const [form, setForm] = useState(emptyForm);
-  // newFiles: File[] chosen in this session (not yet saved)
+  const [form, setForm] = useState({ ...emptyForm, sizes: [] });
+  const [customSizeInput, setCustomSizeInput] = useState('');
   const [newFiles, setNewFiles] = useState([]);
-  // originalUrls: full set of already-saved image URLs as returned by the API
   const [originalUrls, setOriginalUrls] = useState([]);
-  // removedIndices: Set of indices into originalUrls the user has discarded
   const [removedIndices, setRemovedIndices] = useState(new Set());
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showAiModal, setShowAiModal] = useState(false);
+  const [showImageEnhancerModal, setShowImageEnhancerModal] = useState(false);
 
-  // Existing images still visible = original minus removed ones.
+  // Category detection
+  const selectedCatObj = categories.find((c) => c._id === form.category);
+  const catName = (selectedCatObj?.name || '').toLowerCase();
+
+  const isClothing = catName.includes('cloth') || catName.includes('fashion') || catName.includes('apparel') || catName.includes('wear') || catName.includes('shirt') || catName.includes('pant') || catName.includes('dress');
+  const isFurnitureOrElectronics = catName.includes('furniture') || catName.includes('electron') || catName.includes('tech') || catName.includes('home') || catName.includes('appliance') || catName.includes('living') || catName.includes('wellness');
+
+  const generateSku = () => {
+    const randomCode = Math.floor(1000 + Math.random() * 9000);
+    const prefix = isClothing ? 'AAAN-CLT' : isFurnitureOrElectronics ? 'AAAN-TEC' : 'AAAN-CAT';
+    const sku = `${prefix}-${randomCode}`;
+    setForm((prev) => ({ ...prev, sku }));
+    toastSuccess('SKU Generated', `Assigned code ${sku}`);
+  };
+
+  const toggleSize = (sz) => {
+    setForm((prev) => {
+      const current = prev.sizes || [];
+      if (current.includes(sz)) {
+        return { ...prev, sizes: current.filter((s) => s !== sz) };
+      }
+      return { ...prev, sizes: [...current, sz] };
+    });
+  };
+
+  const addCustomSize = () => {
+    const s = customSizeInput.trim();
+    if (!s) return;
+    setForm((prev) => {
+      const current = prev.sizes || [];
+      if (!current.includes(s)) {
+        return { ...prev, sizes: [...current, s] };
+      }
+      return prev;
+    });
+    setCustomSizeInput('');
+  };
+
   const keptOriginals = originalUrls
     .map((url, i) => ({ url, originalIndex: i }))
     .filter((entry) => !removedIndices.has(entry.originalIndex));
 
-  // Build live previews: kept originals first, then new files.
   const previews = [
     ...keptOriginals.map((entry) => ({ url: entry.url, isExisting: true, originalIndex: entry.originalIndex })),
     ...newFiles.map((file) => ({ url: URL.createObjectURL(file), isExisting: false, file })),
@@ -57,19 +99,24 @@ export default function AdminProductForm() {
         if (p) {
           setForm({
             name: p.name,
+            sku: p.sku || `AAAN-CAT-${Math.floor(1000 + Math.random() * 9000)}`,
             description: p.description,
             price: p.price,
             originalPrice: p.originalPrice || '',
             category: p.category?._id || p.category,
             stockQuantity: p.stockQuantity,
             discountPercent: p.discountPercent || 0,
-            bestseller: p.bestseller,
+            bestseller: p.bestseller || false,
+            warranty: p.warranty || '1 Year AAAN Official Warranty',
+            shippingType: p.shippingType || 'Free Express Shipping',
+            sizes: p.sizes || []
           });
-          // Prefer the multi-image array; fall back to the primary URL.
           const imgs = Array.isArray(p.images) ? p.images : [];
           setOriginalUrls(imgs.length > 0 ? imgs : p.image ? [p.image] : []);
         }
       });
+    } else {
+      generateSku();
     }
   }, [id, isEdit]);
 
@@ -78,24 +125,23 @@ export default function AdminProductForm() {
     setForm((prev) => ({ ...prev, [field]: val }));
   };
 
-  // Add one or more files, respecting the 5-image cap and per-file size/type.
   const addFiles = (fileList) => {
     const incoming = Array.from(fileList || []).filter((f) => f.type.startsWith('image/'));
     setError('');
     setNewFiles((prev) => {
       const room = MAX_IMAGES - keptOriginals.length - prev.length;
       if (room <= 0) {
-        setError(`Maximum ${MAX_IMAGES} images per product.`);
+        setError(`Maximum ${MAX_IMAGES} images allowed per catalog item.`);
         return prev;
       }
       const accepted = [];
       for (const f of incoming) {
         if (accepted.length >= room) {
-          setError(`Only ${room} more image${room === 1 ? '' : 's'} can be added (max ${MAX_IMAGES}).`);
+          setError(`Only ${room} more image${room === 1 ? '' : 's'} can be added.`);
           break;
         }
         if (f.size > MAX_FILE_SIZE) {
-          setError(`${f.name} exceeds the 5 MB limit.`);
+          setError(`${f.name} exceeds 5 MB limit.`);
           continue;
         }
         accepted.push(f);
@@ -106,7 +152,6 @@ export default function AdminProductForm() {
 
   const handleFileChange = (e) => {
     addFiles(e.target.files);
-    // Allow re-selecting the same file(s)
     if (fileRef.current) fileRef.current.value = '';
   };
 
@@ -115,9 +160,6 @@ export default function AdminProductForm() {
     addFiles(e.dataTransfer.files);
   };
 
-  // Remove a preview slot by its position in the previews grid.
-  //  - Existing (saved) image: mark its original index for deletion on submit.
-  //  - New (unsaved) file: drop it locally.
   const removePreview = (idx) => {
     const target = previews[idx];
     if (!target) return;
@@ -127,6 +169,19 @@ export default function AdminProductForm() {
       setNewFiles((prev) => prev.filter((_, i) => i !== idx - keptOriginals.length));
     }
   };
+
+  const calculateDiscountInfo = () => {
+    const curr = parseFloat(form.price) || 0;
+    const orig = parseFloat(form.originalPrice) || 0;
+    if (orig > curr && curr > 0) {
+      const saveAmt = orig - curr;
+      const pct = Math.round((saveAmt / orig) * 100);
+      return { saveAmt, pct };
+    }
+    return null;
+  };
+
+  const discountInfo = calculateDiscountInfo();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -144,19 +199,18 @@ export default function AdminProductForm() {
         price: parseFloat(form.price),
         originalPrice: form.originalPrice ? parseFloat(form.originalPrice) : '',
         stockQuantity: parseInt(form.stockQuantity, 10),
-        discountPercent: parseInt(form.discountPercent, 10) || 0,
+        discountPercent: discountInfo ? discountInfo.pct : (parseInt(form.discountPercent, 10) || 0),
         bestseller: form.bestseller,
       };
 
       if (isEdit) {
-        // New files replace the entire image set on the backend, so any
-        // removed-originals are moot in that case. Otherwise, send the set of
-        // original indices the user discarded for deletion.
         const hasNew = newFiles.length > 0;
         const opts = hasNew ? {} : { deleteIndices: [...removedIndices] };
         await updateProduct(id, fields, newFiles, opts);
+        toastSuccess('Catalog Updated!', `${form.name} updated successfully.`);
       } else {
         await createProduct(fields, newFiles);
+        toastSuccess('Catalog Published!', `${form.name} is now live on AAAN Storefront.`);
       }
 
       navigate('/admin/products');
@@ -167,95 +221,270 @@ export default function AdminProductForm() {
     }
   };
 
+  const handleApplyAiContent = (aiData) => {
+    setForm((prev) => ({
+      ...prev,
+      description: (aiData.professionalDescription || '') + '\n\n' + (Array.isArray(aiData.bulletPoints) ? aiData.bulletPoints.join('\n') : '')
+    }));
+    setShowAiModal(false);
+    toastSuccess('AI Copy Applied!', 'Product description & bullet points updated.');
+  };
+
+  const handleApplyEnhancedImage = (enhancedFile) => {
+    setNewFiles((prev) => [enhancedFile, ...prev]);
+    setShowImageEnhancerModal(false);
+    toastSuccess('Enhanced Image Added!', 'AI WebP photo added to gallery.');
+  };
+
   return (
-    <>
-      <h1>{isEdit ? 'Edit Product' : 'Add Product'}</h1>
-      <p className="panel-subtitle">
-        {isEdit ? 'Update product details and images' : 'Create a new product listing'}
-      </p>
+    <div className="aaan-catalog-creator-shell">
+      {/* Luxury Hero Banner */}
+      <div className="catalog-creator-hero">
+        <div>
+          <div className="hero-hub-badge">
+            <AaanLogo size="sm" />
+            <span>AAAN Catalog Studio</span>
+          </div>
+          <h2>{isEdit ? '✏️ Edit Catalog Item' : '✨ Add New Product Catalog'}</h2>
+          <p>Create luxury product listings with automated size pickers, price calculators &amp; real-time preview.</p>
+        </div>
+        <div className="hero-quick-stats" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            className="btn-ai-modal-trigger"
+            onClick={() => setShowImageEnhancerModal(true)}
+            style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)' }}
+          >
+            🎨 AI Image Studio
+          </button>
+          <button
+            type="button"
+            className="btn-ai-modal-trigger"
+            onClick={() => setShowAiModal(true)}
+          >
+            <Sparkles size={16} /> AI Copy Generator
+          </button>
+          <div className="stat-pill">
+            <span>SKU Code</span>
+            <strong>{form.sku || 'AAAN-CAT-1001'}</strong>
+          </div>
+        </div>
+      </div>
 
-      <form className="product-form" onSubmit={handleSubmit}>
-        {error && <div className="auth-error">{error}</div>}
+      <form onSubmit={handleSubmit} className="catalog-form-grid">
+        {error && <div className="auth-error" style={{ gridColumn: '1 / -1' }}>{error}</div>}
 
-        <div className="apf-grid">
-          {/* Left column — fields */}
-          <div className="apf-fields">
-            <div className="apf-group">
-              <label>Product Name *</label>
-              <input value={form.name} onChange={update('name')} required placeholder="e.g. Vitamin C Serum" />
+        {/* Left Column — Form Control Cards */}
+        <div className="catalog-form-main">
+          
+          {/* Card 1: Basic Info */}
+          <div className="apf-card">
+            <div className="card-head-between">
+              <h3 className="card-title">📦 Basic Product Information</h3>
+              <button
+                type="button"
+                onClick={() => setShowAiModal(true)}
+                style={{
+                  background: 'linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)',
+                  color: '#4F46E5',
+                  border: '1px solid #C7D2FE',
+                  padding: '6px 14px',
+                  borderRadius: '50px',
+                  fontWeight: 800,
+                  fontSize: '0.8rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <Sparkles size={14} /> ✨ Auto-Generate Copy with AI
+              </button>
             </div>
-
+            
             <div className="apf-group">
-              <label>Description *</label>
-              <textarea
-                value={form.description}
-                onChange={update('description')}
+              <label>Catalog Product Name *</label>
+              <input
+                value={form.name}
+                onChange={update('name')}
                 required
-                rows={4}
-                placeholder="Describe the product benefits…"
+                placeholder="e.g. AAAN Luxury Silk Saree or Ultra Smart Watch"
+                className="apf-input-lg"
               />
             </div>
 
-            <div className="apf-row">
-              <div className="apf-group">
-                <label>Price ($) *</label>
-                <input type="number" step="0.01" min="0" value={form.price} onChange={update('price')} required />
-              </div>
-              <div className="apf-group">
-                <label>Original Price ($)</label>
-                <input type="number" step="0.01" min="0" value={form.originalPrice} onChange={update('originalPrice')} placeholder="Before discount" />
-              </div>
-            </div>
-
-            <div className="apf-row">
+            <div className="apf-row-2">
               <div className="apf-group">
                 <label>Category *</label>
-                <select value={form.category} onChange={update('category')} required>
-                  <option value="">Select category…</option>
+                <select value={form.category} onChange={update('category')} required className="apf-select">
+                  <option value="">Select product category…</option>
                   {categories.map((c) => (
                     <option key={c._id} value={c._id}>{c.name}</option>
                   ))}
                 </select>
               </div>
+
               <div className="apf-group">
-                <label>Stock Quantity</label>
+                <label>SKU Code</label>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <input value={form.sku} onChange={update('sku')} placeholder="AAAN-CAT-1001" />
+                  <button type="button" onClick={generateSku} className="btn-sku-gen" title="Generate SKU">
+                    <Wand2 size={16} />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="apf-group">
+              <label>Detailed Description *</label>
+              <textarea
+                value={form.description}
+                onChange={update('description')}
+                required
+                rows={4}
+                placeholder="Describe product highlights, materials, features &amp; package contents…"
+              />
+            </div>
+          </div>
+
+          {/* Card 2: Pricing & Discount Calculator */}
+          <div className="apf-card">
+            <h3 className="card-title">💰 Pricing &amp; Savings Calculator</h3>
+            
+            <div className="apf-row-3">
+              <div className="apf-group">
+                <label>Offer Price (₹) *</label>
+                <input type="number" step="1" min="0" value={form.price} onChange={update('price')} required placeholder="e.g. 1999" />
+              </div>
+
+              <div className="apf-group">
+                <label>Original MRP Price (₹)</label>
+                <input type="number" step="1" min="0" value={form.originalPrice} onChange={update('originalPrice')} placeholder="e.g. 2999" />
+              </div>
+
+              <div className="apf-group">
+                <label>Stock Quantity (Units)</label>
                 <input type="number" min="0" value={form.stockQuantity} onChange={update('stockQuantity')} />
               </div>
             </div>
 
-            <div className="apf-row">
-              <div className="apf-group">
-                <label>Discount (%)</label>
-                <input type="number" min="0" max="100" value={form.discountPercent} onChange={update('discountPercent')} />
+            {discountInfo && (
+              <div className="discount-calc-banner">
+                <Sparkles size={18} color="#10B981" />
+                <div>
+                  <strong>Customer Savings Computed:</strong>
+                  <span>Save ₹{discountInfo.saveAmt.toLocaleString()} ({discountInfo.pct}% OFF)</span>
+                </div>
               </div>
-              <div className="apf-group apf-check">
+            )}
+
+            <div className="apf-row-2" style={{ marginTop: '12px' }}>
+              <div className="apf-group apf-check-card">
                 <label className="apf-checkbox-label">
                   <input type="checkbox" checked={form.bestseller} onChange={update('bestseller')} />
-                  <span>Mark as Bestseller</span>
+                  <span>★ Mark as Bestseller Catalog (Featured Pill)</span>
                 </label>
               </div>
             </div>
           </div>
 
-          {/* Right column — image upload (multiple) */}
-          <div className="apf-image-col">
-            <label className="apf-section-label">
-              Product Images {!isEdit && '*'}
-              <span className="apf-count">{totalCount} / {MAX_IMAGES}</span>
-            </label>
+          {/* Card 3: Size & Dimension Selector */}
+          <div className="apf-card">
+            <div className="card-head-between">
+              <h3 className="card-title">📏 Size Options &amp; Measurement Guide</h3>
+              <span className="cat-mode-badge">
+                {isClothing ? '👔 Clothes Mode (S-XXXL)' : isFurnitureOrElectronics ? '📐 Dimensions Mode (cm)' : 'Standard'}
+              </span>
+            </div>
 
-            {/* Thumbnail grid */}
+            <p className="apf-card-hint">
+              {isClothing
+                ? 'Select clothing sizes customers can choose from:'
+                : isFurnitureOrElectronics
+                ? 'Select or add dimensions in centimeters (cm):'
+                : 'Select product options available for purchase:'}
+            </p>
+
+            <div className="apf-size-chips">
+              {(isClothing
+                ? ['S', 'M', 'L', 'XL', 'XXL', 'XXXL']
+                : ['30 × 20 cm', '50 × 40 cm', '100 × 60 cm', '120 × 80 cm', '150 × 90 cm', '200 × 100 cm']
+              ).map((sz) => {
+                const active = (form.sizes || []).includes(sz);
+                return (
+                  <button
+                    type="button"
+                    key={sz}
+                    className={`apf-size-chip ${active ? 'active' : ''}`}
+                    onClick={() => toggleSize(sz)}
+                  >
+                    {sz} {active ? '✓' : '+'}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="apf-custom-size-row">
+              <input
+                type="text"
+                placeholder={isClothing ? 'Custom size (e.g. XS, Free Size)' : 'Custom size in cm (e.g. 75 × 45 cm)'}
+                value={customSizeInput}
+                onChange={(e) => setCustomSizeInput(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addCustomSize(); } }}
+              />
+              <button type="button" className="btn-add-custom-size" onClick={addCustomSize}>
+                + Add Size Option
+              </button>
+            </div>
+          </div>
+
+          {/* Card 4: Logistics & Warranty */}
+          <div className="apf-card">
+            <h3 className="card-title">🛡️ Logistics, Shipping &amp; Warranty</h3>
+            <div className="apf-row-2">
+              <div className="apf-group">
+                <label>Warranty Period</label>
+                <select value={form.warranty} onChange={update('warranty')} className="apf-select">
+                  <option value="1 Year AAAN Official Warranty">1 Year Official Warranty</option>
+                  <option value="6 Months Replacement Warranty">6 Months Replacement Warranty</option>
+                  <option value="3 Months Limited Warranty">3 Months Warranty</option>
+                  <option value="No Warranty (Tested genuine)">No Warranty (Standard)</option>
+                </select>
+              </div>
+
+              <div className="apf-group">
+                <label>Fulfillment Shipping</label>
+                <select value={form.shippingType} onChange={update('shippingType')} className="apf-select">
+                  <option value="Free Express Shipping">Free Same-Day Express Dispatch</option>
+                  <option value="Standard Ground Courier">Standard Ground Courier</option>
+                  <option value="COD Supported">Cash on Delivery Supported</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column — Media Upload & Live Storefront Preview */}
+        <div className="catalog-form-sidebar">
+          
+          {/* Media Upload Card */}
+          <div className="apf-card">
+            <div className="card-head-between">
+              <h3 className="card-title">📸 Catalog Gallery</h3>
+              <span className="apf-count">{totalCount} / {MAX_IMAGES}</span>
+            </div>
+
             {totalCount > 0 && (
               <div className="apf-thumb-grid">
                 {previews.map((p, i) => (
                   <div className={`apf-thumb ${i === 0 ? 'cover' : ''}`} key={i}>
-                    <img src={p.url} alt={`Product ${i + 1}`} />
-                    {i === 0 && <span className="apf-cover-badge">Cover</span>}
+                    <img src={p.url} alt={`Product ${i + 1}`} loading="lazy" />
+                    {i === 0 && <span className="apf-cover-badge">Primary</span>}
                     <button
                       type="button"
                       className="apf-thumb-remove"
                       onClick={() => removePreview(i)}
-                      aria-label={`Remove image ${i + 1}`}
+                      aria-label="Remove image"
                     >
                       <X size={14} />
                     </button>
@@ -264,20 +493,17 @@ export default function AdminProductForm() {
               </div>
             )}
 
-            {/* Drop zone — hidden once cap reached */}
             {totalCount < MAX_IMAGES && (
               <div
-                className="apf-dropzone apf-dropzone-multi"
+                className="apf-dropzone"
                 onClick={() => fileRef.current?.click()}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
               >
                 <div className="apf-dropzone-empty">
-                  <div className="apf-drop-icon">
-                    <ImagePlus size={28} />
-                  </div>
-                  <p className="apf-drop-title">Drag & drop or click to upload</p>
-                  <p className="apf-drop-hint">Up to {MAX_IMAGES} images · JPG, PNG, WEBP · Max 5 MB each</p>
+                  <ImagePlus size={32} color="#6366F1" />
+                  <p className="apf-drop-title">Drag images or click to upload</p>
+                  <p className="apf-drop-hint">Up to {MAX_IMAGES} images · WebP, JPG, PNG</p>
                 </div>
               </div>
             )}
@@ -297,28 +523,178 @@ export default function AdminProductForm() {
                 className="apf-browse-btn"
                 onClick={() => fileRef.current?.click()}
               >
-                <Upload size={15} />
-                {totalCount === 0 ? 'Browse Files' : 'Add More'}
+                <Upload size={16} /> {totalCount === 0 ? 'Upload Catalog Images' : 'Add More Photos'}
               </button>
             )}
-
-            {newFiles.length > 0 && (
-              <p className="apf-file-name">
-                {newFiles.length} new image{newFiles.length > 1 ? 's' : ''} ready to upload
-              </p>
-            )}
           </div>
-        </div>
 
-        <div className="apf-actions">
-          <button type="submit" className="btn btn-sky" disabled={loading}>
-            {loading ? 'Saving…' : isEdit ? '✓ Update Product' : '+ Create Product'}
-          </button>
-          <button type="button" className="btn btn-secondary" onClick={() => navigate('/admin/products')}>
-            Cancel
-          </button>
+          {/* Real-Time Storefront Card Preview */}
+          <div className="apf-card preview-card-wrapper">
+            <h3 className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Eye size={18} color="#10B981" /> Live Storefront Card Preview
+            </h3>
+
+            <div className="storefront-preview-card">
+              <div className="preview-img-box">
+                <img
+                  src={previews.length > 0 ? previews[0].url : '/aaan-logo.svg'}
+                  alt="Live Preview"
+                  loading="lazy"
+                />
+                {discountInfo && (
+                  <span className="preview-save-tag">-{discountInfo.pct}%</span>
+                )}
+                {form.bestseller && (
+                  <span className="preview-bestseller-tag">★ BESTSELLER</span>
+                )}
+              </div>
+
+              <div className="preview-body">
+                <span className="preview-cat">{selectedCatObj?.name || 'Category'}</span>
+                <h4 className="preview-title">{form.name || 'Catalog Product Name'}</h4>
+
+                <div className="preview-price-row">
+                  <span className="preview-price">{formatPrice(form.price || 0)}</span>
+                  {form.originalPrice && (
+                    <span className="preview-orig-price">{formatPrice(form.originalPrice)}</span>
+                  )}
+                </div>
+
+                {(form.sizes || []).length > 0 && (
+                  <div className="preview-sizes-list">
+                    {(form.sizes || []).map((sz) => (
+                      <span key={sz} className="preview-size-pill">{sz}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div className="preview-cta-btn">View Product Details</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Submit Action Bar */}
+          <div className="apf-card actions-card">
+            <button type="submit" className="btn-publish-catalog" disabled={loading}>
+              {loading ? 'Publishing…' : isEdit ? '✓ Update Catalog Item' : '✨ Publish Catalog Item'}
+            </button>
+            <button type="button" className="btn-cancel-catalog" onClick={() => navigate('/admin/products')}>
+              Cancel
+            </button>
+          </div>
+
         </div>
       </form>
-    </>
+
+      {/* AI Copy & SEO Generator Modal Popup */}
+      {showAiModal && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(15, 23, 42, 0.75)',
+            backdropFilter: 'blur(8px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+          onClick={() => setShowAiModal(false)}
+        >
+          <div
+            style={{
+              background: 'white',
+              borderRadius: '28px',
+              maxWidth: '960px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              padding: '28px',
+              boxShadow: '0 25px 60px rgba(0,0,0,0.3)',
+              position: 'relative'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowAiModal(false)}
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                background: '#F1F5F9',
+                border: 'none',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontWeight: 800,
+                fontSize: '1rem',
+                zIndex: 10
+              }}
+            >
+              ✕
+            </button>
+
+            <AdminAiGenerator onApplyToCatalog={handleApplyAiContent} />
+          </div>
+        </div>
+      )}
+
+      {/* AI Image Enhancement Studio Modal Popup */}
+      {showImageEnhancerModal && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(15, 23, 42, 0.75)',
+            backdropFilter: 'blur(8px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+          onClick={() => setShowImageEnhancerModal(false)}
+        >
+          <div
+            style={{
+              background: 'white',
+              borderRadius: '28px',
+              maxWidth: '960px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              padding: '28px',
+              boxShadow: '0 25px 60px rgba(0,0,0,0.3)',
+              position: 'relative'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowImageEnhancerModal(false)}
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                background: '#F1F5F9',
+                border: 'none',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontWeight: 800,
+                fontSize: '1rem',
+                zIndex: 10
+              }}
+            >
+              ✕
+            </button>
+
+            <AdminImageEnhancer onApplyEnhancedImage={handleApplyEnhancedImage} />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

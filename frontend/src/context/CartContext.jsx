@@ -8,29 +8,39 @@ export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
-  const addToCart = useCallback((product) => {
+  const addToCart = useCallback((product, count = 1, selectedSize = null) => {
+    const chosenSize = selectedSize || product.selectedSize || 'Standard';
     setItems((prev) => {
-      const existing = prev.find((i) => i._id === product._id);
+      const existing = prev.find(
+        (i) => i._id === product._id && (i.selectedSize || 'Standard') === chosenSize
+      );
       if (existing) {
         return prev.map((i) =>
-          i._id === product._id ? { ...i, quantity: i.quantity + 1 } : i
+          i._id === product._id && (i.selectedSize || 'Standard') === chosenSize
+            ? { ...i, quantity: i.quantity + count }
+            : i
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity: count, selectedSize: chosenSize }];
     });
-    toastCart(product.name, null);
+    toastCart(`${product.name} (${chosenSize})`, null);
   }, []);
 
-  // Silent version — no toast (used when the caller shows its own UI feedback)
-  const addToCartSilent = useCallback((product) => {
+  // Silent version — no toast
+  const addToCartSilent = useCallback((product, count = 1, selectedSize = null) => {
+    const chosenSize = selectedSize || product.selectedSize || 'Standard';
     setItems((prev) => {
-      const existing = prev.find((i) => i._id === product._id);
+      const existing = prev.find(
+        (i) => i._id === product._id && (i.selectedSize || 'Standard') === chosenSize
+      );
       if (existing) {
         return prev.map((i) =>
-          i._id === product._id ? { ...i, quantity: i.quantity + 1 } : i
+          i._id === product._id && (i.selectedSize || 'Standard') === chosenSize
+            ? { ...i, quantity: i.quantity + count }
+            : i
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity: count, selectedSize: chosenSize }];
     });
   }, []);
 
@@ -67,6 +77,7 @@ export function CartProvider({ children }) {
     <CartContext.Provider
       value={{
         items,
+        cartItems: items,
         wishlist,
         cartCount,
         cartTotal,

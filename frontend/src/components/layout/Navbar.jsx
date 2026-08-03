@@ -4,6 +4,8 @@ import { Search, User, ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { toastSuccess } from '../../utils/toast.js';
+import AaanLogo from '../common/AaanLogo';
+import { ShoppingChallengePill, ShoppingChallengesModal } from '../common/ShoppingChallengesModal';
 import './Navbar.css';
 
 const navLinks = [
@@ -24,6 +26,7 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [showChallengeModal, setShowChallengeModal] = useState(false);
 
   // Elevate the bar (stronger shadow / tighter blur) once the page scrolls.
   useEffect(() => {
@@ -67,7 +70,7 @@ export default function Navbar() {
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar-inner">
         <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>
-          <img src="/logo.png" alt="Afsha Enterprises" className="logo-img" />
+          <AaanLogo size="md" />
         </Link>
 
         <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
@@ -79,6 +82,11 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-actions">
+          {/* Shopping Challenge Spend Rewards Trigger */}
+          <div className="nav-challenge-hide-mobile">
+            <ShoppingChallengePill onClick={() => setShowChallengeModal(true)} />
+          </div>
+
           {/* Expandable search */}
           <form className={`nav-search ${searchOpen ? 'open' : ''}`} onSubmit={handleSearchSubmit}>
             <input
@@ -141,6 +149,11 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
+      <ShoppingChallengesModal
+        isOpen={showChallengeModal}
+        onClose={() => setShowChallengeModal(false)}
+      />
     </header>
   );
 }

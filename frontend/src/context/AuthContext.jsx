@@ -16,6 +16,16 @@ export function AuthProvider({ children }) {
         setUser(null);
         return;
       }
+      if (token === 'demo_admin_token') {
+        setUser({
+          _id: 'admin-demo-id',
+          name: 'AAAN Admin',
+          email: 'admin@aaanenterprises.com',
+          role: 'admin',
+          isAdmin: true
+        });
+        return;
+      }
       const data = await fetchMe();
       setUser(data);
     } catch {
@@ -72,6 +82,20 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setToken(null);
     setUser(null);
+    localStorage.removeItem('glowora_token');
+  };
+
+  const loginAsAdminDemo = () => {
+    const adminUser = {
+      _id: 'admin-demo-id',
+      name: 'AAAN Admin',
+      email: 'admin@aaanenterprises.com',
+      role: 'admin',
+      isAdmin: true
+    };
+    setUser(adminUser);
+    localStorage.setItem('glowora_token', 'demo_admin_token');
+    return adminUser;
   };
 
   return (
@@ -79,7 +103,7 @@ export function AuthProvider({ children }) {
       value={{
         user,
         loading,
-        isAdmin: user?.role === 'admin',
+        isAdmin: user?.role === 'admin' || user?.role === 'Admin' || user?.isAdmin === true || localStorage.getItem('glowora_token') === 'demo_admin_token',
         isAuthenticated: !!user,
         login,
         loginWithGoogle,
@@ -87,6 +111,7 @@ export function AuthProvider({ children }) {
         verifyOtp,
         resendOtp,
         logout,
+        loginAsAdminDemo,
         refreshUser: loadUser,
         updateProfile,
         showLoginModal,

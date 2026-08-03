@@ -1,32 +1,130 @@
+/* =========================================
+   MEESHO SELLER HUB — ADMIN PANEL THEME
+   ========================================= */
+
+:root {
+  --meesho-magenta: #9f2089;
+  --meesho-dark: #7a1568;
+  --meesho-light: #fdf2fb;
+  --meesho-subtle: #fae8f8;
+  --meesho-gradient: linear-gradient(135deg, #9f2089 0%, #6C5CE7 100%);
+  --meesho-header-bg: #800080;
+  --meesho-sidebar-bg: #FFFFFF;
+}
+
 .panel-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
-  min-height: calc(100vh - 72px);
-  background: var(--off-white);
+  min-height: 100vh;
+  background: #F4F6F9;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
+/* Meesho Admin Top Header */
+.meesho-top-header {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+  color: #FFFFFF;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 100;
+}
+
+.meesho-brand-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.3px;
+}
+
+.meesho-hub-badge {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  color: #FFE600;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+.meesho-top-search {
+  flex: 1;
+  max-width: 440px;
+  position: relative;
+}
+
+.meesho-top-search input {
+  width: 100%;
+  padding: 8px 16px 8px 38px;
+  border-radius: 50px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.meesho-top-search input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.meesho-top-search svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.meesho-top-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.meesho-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.meesho-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  animation: pulse 1.5s infinite;
+}
+
+/* Meesho Left Sidebar */
 .panel-sidebar {
   background: var(--white);
   border-right: 1px solid var(--border);
-  padding: 32px 0;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .panel-sidebar-header {
-  padding: 0 24px 24px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 16px;
-}
-
-.admin-sidebar-logo {
-  height: 44px;
-  width: auto;
-  object-fit: contain;
-}
-
-.panel-sidebar-header p {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 4px;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 12px;
 }
 
 .panel-nav a,
@@ -35,35 +133,32 @@
   align-items: center;
   gap: 12px;
   width: 100%;
-  padding: 14px 24px;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  transition: all 0.2s;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.2s ease;
   text-align: left;
+  border: none;
+  background: none;
+  text-decoration: none;
 }
 
 .panel-nav a:hover,
 .panel-nav button:hover {
-  background: var(--off-white);
-  color: var(--rose-gold);
+  background: var(--meesho-light);
+  color: var(--meesho-magenta);
 }
 
 .panel-nav a.active {
-  background: linear-gradient(90deg, var(--rose-gold-light), transparent);
-  color: var(--rose-gold);
-  font-weight: 600;
-  border-right: 3px solid var(--rose-gold);
-}
-
-.panel-sidebar.dark .panel-nav a.active,
-.panel-sidebar.dark .panel-nav a.active {
-  background: rgba(59, 130, 246, 0.15);
-  color: var(--rose-gold-light);
-  border-right-color: var(--rose-gold-light);
+  background: var(--meesho-light);
+  color: var(--meesho-magenta);
+  font-weight: 700;
+  border-right: 4px solid var(--meesho-magenta);
 }
 
 .panel-content {
-  padding: 32px 40px;
+  padding: 28px 36px;
   overflow-y: auto;
   width: 100%;
   box-sizing: border-box;

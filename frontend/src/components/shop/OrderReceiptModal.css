@@ -1,0 +1,362 @@
+/* =========================================
+   AAAN ENTERPRISES — Official Tax Invoice & Customer Receipt
+   ========================================= */
+
+.aaan-receipt-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.aaan-receipt-modal-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  max-width: 820px;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Action Header */
+.receipt-actions-header {
+  background: #0F172A;
+  color: #FFFFFF;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.receipt-head-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.receipt-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.receipt-btn-print {
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+  transition: transform 0.2s;
+}
+
+.receipt-btn-print:hover {
+  transform: translateY(-2px);
+}
+
+.receipt-btn-close {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Printable Area */
+.aaan-receipt-printable {
+  padding: 36px;
+  background: #FFFFFF;
+  overflow-y: auto;
+  color: #0F172A;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Top Banner */
+.receipt-top-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.company-tax-info {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.company-tax-info strong {
+  color: #0F172A;
+  display: block;
+}
+
+.invoice-badge-box {
+  text-align: right;
+}
+
+.invoice-tag {
+  background: #EEF2FF;
+  color: #4F46E5;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
+  display: inline-block;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.invoice-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.invoice-date {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin-top: 2px;
+}
+
+.payment-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #DCFCE7;
+  color: #15803D;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  margin-top: 8px;
+}
+
+.receipt-divider {
+  height: 1px;
+  background: #E2E8F0;
+  margin: 24px 0;
+}
+
+/* Details Grid */
+.receipt-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+}
+
+.col-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #6366F1;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.cust-name {
+  font-size: 1rem;
+  color: #0F172A;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.detail-col p {
+  margin: 2px 0;
+  color: #475569;
+}
+
+.detail-col.right-align {
+  text-align: right;
+}
+
+/* Items Table */
+.receipt-table-wrap {
+  margin-bottom: 24px;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.receipt-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.receipt-items-table th {
+  background: #F8FAFC;
+  color: #0F172A;
+  font-weight: 800;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.receipt-items-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #F1F5F9;
+  color: #334155;
+}
+
+.item-size-badge {
+  background: #EEF2FF;
+  color: #4F46E5;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.receipt-items-table td.bold {
+  font-weight: 800;
+  color: #0F172A;
+}
+
+/* Footer Grid */
+.receipt-footer-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.qr-code-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #F8FAFC;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 14px;
+}
+
+.qr-code-box strong {
+  display: block;
+  font-size: 0.85rem;
+  color: #0F172A;
+}
+
+.qr-code-box p {
+  font-size: 0.72rem;
+  color: #64748B;
+  margin: 2px 0 0;
+}
+
+.return-terms {
+  font-size: 0.78rem;
+  color: #64748B;
+  line-height: 1.4;
+}
+
+.return-terms strong {
+  color: #0F172A;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.receipt-amounts-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.88rem;
+}
+
+.amount-row {
+  display: flex;
+  justify-content: space-between;
+  color: #475569;
+}
+
+.amount-row.discount {
+  color: #EF4444;
+}
+
+.amount-row.total-row {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  padding-top: 8px;
+  border-top: 2px solid #0F172A;
+  margin-top: 4px;
+}
+
+.signatory-box {
+  margin-top: 20px;
+  text-align: right;
+  position: relative;
+}
+
+.stamp-seal {
+  display: inline-block;
+  border: 2px dashed #10B981;
+  color: #10B981;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  transform: rotate(-3deg);
+}
+
+.signatory-box span {
+  display: block;
+  font-size: 0.75rem;
+  color: #64748B;
+}
+
+.signatory-box strong {
+  display: block;
+  font-size: 0.85rem;
+  color: #0F172A;
+}
+
+/* Print CSS */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .aaan-receipt-printable, .aaan-receipt-printable * {
+    visibility: visible;
+  }
+  .aaan-receipt-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: white;
+    padding: 0;
+  }
+  .aaan-receipt-modal-card {
+    box-shadow: none;
+    max-width: 100%;
+    border-radius: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

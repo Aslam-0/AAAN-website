@@ -12,6 +12,7 @@ import CheckoutSuccess from './pages/shop/CheckoutSuccess';
 import RazorpayCheckoutTest from './pages/shop/RazorpayCheckoutTest';
 import AccountLayout from './pages/account/AccountLayout';
 import OrderHistory from './pages/account/OrderHistory';
+import CustomerDashboard from './pages/account/CustomerDashboard';
 import WishlistPage from './pages/account/WishlistPage';
 import AccountSettings from './pages/account/AccountSettings';
 import AdminLayout from './pages/admin/AdminLayout';
@@ -26,6 +27,15 @@ import AdminReviews from './pages/admin/AdminReviews';
 import AdminOfflineSale from './pages/admin/AdminOfflineSale';
 import AdminFlashSale from './pages/admin/AdminFlashSale';
 import AdminPromoBanners from './pages/admin/AdminPromoBanners';
+import AdminCoupons from './pages/admin/AdminCoupons';
+import AdminCustomers from './pages/admin/AdminCustomers';
+import AdminAnalytics from './pages/admin/AdminAnalytics';
+import AdminAiGenerator from './pages/admin/AdminAiGenerator';
+import AdminImageEnhancer from './pages/admin/AdminImageEnhancer';
+import AdminEmailGenerator from './pages/admin/AdminEmailGenerator';
+import AdminMarketingHub from './pages/admin/AdminMarketingHub';
+import AiSupportChatbot from './components/common/AiSupportChatbot';
+import { FlashSaleCountdownBanner, PromotionalExitPopup } from './components/common/MarketingPopups';
 import Contact from './pages/Contact';
 import BlogList from './pages/blog/BlogList';
 import BlogDetail from './pages/blog/BlogDetail';
@@ -157,7 +167,8 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<OrderHistory />} />
+          <Route index element={<CustomerDashboard />} />
+          <Route path="orders" element={<OrderHistory />} />
           <Route path="wishlist" element={<WishlistPage />} />
           <Route path="settings" element={<AccountSettings />} />
         </Route>
@@ -183,10 +194,19 @@ function App() {
           <Route path="offline-sale" element={<AdminOfflineSale />} />
           <Route path="flash-sale" element={<AdminFlashSale />} />
           <Route path="promo-banners" element={<AdminPromoBanners />} />
+          <Route path="coupons" element={<AdminCoupons />} />
+          <Route path="customers" element={<AdminCustomers />} />
+          <Route path="analytics" element={<AdminAnalytics />} />
+          <Route path="ai-generator" element={<AdminAiGenerator />} />
+          <Route path="image-enhancer" element={<AdminImageEnhancer />} />
+          <Route path="email-generator" element={<AdminEmailGenerator />} />
+          <Route path="marketing" element={<AdminMarketingHub />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
+      <AiSupportChatbot />
+      <PromotionalExitPopup />
     </>
   );
 }

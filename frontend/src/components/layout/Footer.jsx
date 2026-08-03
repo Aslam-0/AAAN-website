@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, MapPin, Phone, Instagram, Youtube } from 'lucide-react';
+import AaanLogo from '../common/AaanLogo';
 import './Footer.css';
 
 export default function Footer() {
@@ -12,11 +13,10 @@ export default function Footer() {
           {/* Brand */}
           <div className="footer-brand">
             <div className="footer-logo">
-              <img src="/logo.png" alt="Afsha Enterprises" className="footer-logo-img" />
+              <AaanLogo size="lg" light={true} />
             </div>
             <p>
-              Premium skincare crafted with love. Clean ingredients, real results,
-              and a commitment to your natural glow.
+              AAAN Enterprises delivers premium quality products, top-rated electronics, fashion &amp; lifestyle solutions with fast delivery across India.
             </p>
             <div className="footer-social">
               <a

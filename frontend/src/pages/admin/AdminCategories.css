@@ -1,0 +1,345 @@
+/* =========================================
+   AAAN ENTERPRISES — Category Manager Styling
+   ========================================= */
+
+.aaan-categories-shell {
+  padding: 8px 0 40px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #0F172A;
+}
+
+/* Header Banner */
+.cat-header-banner {
+  background: linear-gradient(135deg, #0F172A 0%, #4F46E5 100%);
+  border-radius: 28px;
+  padding: 28px 36px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.15);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.cat-hub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.cat-header-banner h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 4px 0 6px;
+}
+
+.cat-header-banner p {
+  opacity: 0.88;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.cat-search-box {
+  position: relative;
+  width: 260px;
+}
+
+.cat-search-box svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+}
+
+.cat-search-box input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 0.88rem;
+  outline: none;
+  backdrop-filter: blur(4px);
+}
+
+.cat-search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Layout Grid */
+.cat-portal-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Form Card */
+.cat-form-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #F1F5F9;
+  position: sticky;
+  top: 90px;
+}
+
+.cat-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 16px;
+}
+
+.cat-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.cat-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1.5px solid #E2E8F0;
+  font-size: 0.92rem;
+  outline: none;
+  background: #F8FAFC;
+  transition: border-color 0.2s;
+}
+
+.cat-input:focus {
+  border-color: #6366F1;
+  background: #FFFFFF;
+}
+
+/* Presets */
+.preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.preset-chip {
+  background: #EEF2FF;
+  color: #4F46E5;
+  border: 1px solid #C7D2FE;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.preset-chip:hover {
+  background: #4F46E5;
+  color: white;
+}
+
+/* Dropzone */
+.cat-dropzone {
+  border: 2px dashed #C7D2FE;
+  background: #F8FAFC;
+  border-radius: 18px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.cat-dropzone:hover {
+  background: #EEF2FF;
+}
+
+.cat-drop-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.cat-drop-empty strong {
+  font-size: 0.85rem;
+  color: #0F172A;
+}
+
+.cat-drop-empty p {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin: 0;
+}
+
+.cat-preview-box {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cat-preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cat-preview-change {
+  position: absolute;
+  bottom: 0;
+  inset-x: 0;
+  background: rgba(15, 23, 42, 0.75);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px;
+}
+
+/* Form Actions */
+.cat-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.btn-cat-save {
+  flex: 1;
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: white;
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 12px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+}
+
+.btn-cat-cancel {
+  background: #F1F5F9;
+  color: #475569;
+  font-weight: 700;
+  padding: 12px 18px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Category Cards Grid */
+.cat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.cat-card-item {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #F1F5F9;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cat-card-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.cat-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.5;
+  background: #F8FAFC;
+  overflow: hidden;
+}
+
+.cat-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.cat-card-item:hover .cat-card-img-wrap img {
+  transform: scale(1.08);
+}
+
+.cat-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.cat-card-item:hover .cat-card-overlay {
+  opacity: 1;
+}
+
+.cat-btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.cat-btn-icon.danger {
+  color: #EF4444;
+}
+
+.cat-card-info {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cat-card-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.cat-card-count {
+  font-size: 0.75rem;
+  color: #10B981;
+  font-weight: 700;
+}
+
+@media (max-width: 850px) {
+  .cat-portal-grid {
+    grid-template-columns: 1fr;
+  }
+  .cat-form-card {
+    position: static;
+  }
+}

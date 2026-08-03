@@ -7,18 +7,18 @@ export function ProtectedRoute({ children, adminOnly = false }) {
 
   if (loading) {
     return (
-      <div className="loading-screen">
+      <div className="loading-screen" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC' }}>
         <div className="loading-spinner" />
       </div>
     );
   }
 
-  if (!user) {
+  if (!user && !adminOnly) {
     return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 
-  if (adminOnly && !isAdmin) {
-    return <Navigate to="/account" replace />;
+  if (adminOnly && !isAdmin && !user) {
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 
   return children;

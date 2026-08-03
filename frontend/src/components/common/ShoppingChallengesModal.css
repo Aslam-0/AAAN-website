@@ -1,0 +1,281 @@
+/* =========================================
+   AAAN ENTERPRISES — Shopping Challenges Styling
+   ========================================= */
+
+/* Trigger Pill */
+.shopping-challenge-pill-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #4F46E5 100%);
+  color: #FFFFFF;
+  padding: 6px 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+  transition: transform 0.2s;
+}
+
+.shopping-challenge-pill-trigger:hover {
+  transform: translateY(-1px);
+}
+
+.pill-icon-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill-text-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.pill-text-wrap strong { font-size: 0.82rem; font-weight: 800; color: #FFFFFF; }
+.pill-text-wrap span { font-size: 0.72rem; color: #FFE600; font-weight: 700; }
+
+/* Modal Backdrop — Centered in Viewport via Document Body Portal */
+.challenge-modal-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 99999999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.challenge-modal-card {
+  background: #FFFFFF;
+  border-radius: 28px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 32px;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  border: 1px solid #E2E8F0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: auto !important;
+  animation: challengeModalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes challengeModalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.challenge-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #F1F5F9;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.challenge-close-btn:hover {
+  background: #E2E8F0;
+}
+
+.challenge-hero-head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.c-badge {
+  display: inline-block;
+  background: #EEF2FF;
+  color: #4F46E5;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 8px;
+}
+
+.challenge-hero-head h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 6px;
+}
+
+.challenge-hero-head p {
+  font-size: 0.88rem;
+  color: #64748B;
+  margin: 0 0 20px;
+}
+
+/* Meter */
+.meter-card {
+  background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
+  border-radius: 20px;
+  padding: 18px 24px;
+  color: white;
+}
+
+.meter-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.meter-info strong { color: #FFE600; }
+
+.meter-track {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #10B981 0%, #FFE600 100%);
+  border-radius: 50px;
+  transition: width 0.4s ease;
+}
+
+.meter-pct {
+  font-size: 0.75rem;
+  opacity: 0.85;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Tiers List */
+.challenge-tiers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tier-card-item {
+  background: #F8FAFC;
+  border-radius: 20px;
+  padding: 18px;
+  border: 2px solid #E2E8F0;
+}
+
+.tier-card-item.unlocked {
+  background: #FFFFFF;
+  border-color: #10B981;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1);
+}
+
+.tier-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.tier-badge-icon { font-size: 1.8rem; }
+
+.tier-head strong { display: block; font-size: 0.95rem; color: #0F172A; }
+.tier-head span { font-size: 0.78rem; color: #64748B; }
+
+.tier-status { margin-left: auto; }
+
+.status-unlocked {
+  background: #DCFCE7;
+  color: #15803D;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-locked {
+  background: #FEF3C7;
+  color: #D97706;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tier-rewards-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.reward-pill {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.claim-action-row {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.claim-desc { font-size: 0.82rem; color: #4F46E5; }
+
+.btn-claim-coupon {
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.78rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
