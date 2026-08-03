@@ -780,4 +780,115 @@
   .product-detail-wrapper, .timeline-steps-grid {
     grid-template-columns: 1fr;
   }
+  .combo-accessories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-detail-container {
+    padding-top: 12px;
+    padding-bottom: 40px;
+  }
+  .aaan-breadcrumb-card {
+    font-size: 0.75rem;
+    padding: 10px 14px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .product-detail-wrapper {
+    gap: 20px;
+  }
+  .product-gallery-main img {
+    border-radius: 18px;
+  }
+  .product-thumb-strip {
+    gap: 8px;
+  }
+  .product-thumb-strip img {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+  }
+  .product-info-panel h1 {
+    font-size: 1.3rem;
+  }
+  .price-current {
+    font-size: 1.6rem;
+  }
+  .price-old {
+    font-size: 0.9rem;
+  }
+  .action-buttons {
+    flex-direction: column;
+  }
+  .action-buttons button, .action-buttons a {
+    width: 100%;
+    justify-content: center;
+  }
+  .badge-strip {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .badge-strip span {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+  .color-swatches-row {
+    gap: 8px;
+  }
+  .product-tabs .tab-btn {
+    font-size: 0.78rem;
+    padding: 8px 14px;
+  }
+  .product-tabs-bar {
+    overflow-x: auto;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+  .combo-offer-box {
+    padding: 16px;
+    border-radius: 18px;
+  }
+  .combo-accessories-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .warranty-card, .manual-download-card {
+    padding: 14px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-info-panel h1 {
+    font-size: 1.1rem;
+  }
+  .price-current {
+    font-size: 1.35rem;
+  }
+  .product-gallery-main img {
+    border-radius: 14px;
+  }
+  .product-thumb-strip img {
+    width: 44px;
+    height: 44px;
+  }
+  .aaan-breadcrumb-card {
+    font-size: 0.68rem;
+    padding: 8px 12px;
+  }
+  .qty-selector {
+    gap: 6px;
+  }
+  .qty-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .live-counter-row {
+    flex-direction: column;
+    gap: 8px;
+  }
 }

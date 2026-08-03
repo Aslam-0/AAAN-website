@@ -2,7 +2,7 @@
    FOOTER — Premium Dark
    ========================================= */
 .footer {
-  background: linear-gradient(180deg, #111e2b 0%, #1A2B3C 100%);
+  background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 40%, #311B92 80%, #4A148C 100%);
   color: rgba(255, 255, 255, 0.72);
   padding-top: 72px;
   position: relative;
