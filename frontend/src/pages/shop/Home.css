@@ -294,6 +294,47 @@
   z-index: 2;
 }
 
+.aaan-hero-mobile-showcase {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .aaan-hero-mobile-showcase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 12px 0 16px;
+  }
+  .desktop-only-hero-right {
+    display: none !important;
+  }
+}
+
+.mobile-product-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.m-badge-pill {
+  background: #EEF2FF;
+  color: #4F46E5;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  border: 1px solid #C7D2FE;
+}
+
+.m-badge-pill.green {
+  background: #ECFDF5;
+  color: #059669;
+  border-color: #A7F3D0;
+}
+
 .aaan-hero-image-frame.white-frame {
   position: relative;
   display: flex;

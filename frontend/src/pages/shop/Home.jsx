@@ -219,6 +219,22 @@ export default function Home() {
                   Elevate Your Lifestyle With <br />
                   <span className="aaan-gradient-text-purple">AAAN Premium Quality</span>
                 </h1>
+
+                {/* Prominent Mobile Product Showcase Image */}
+                <div className="aaan-hero-mobile-showcase">
+                  <div className="aaan-hero-image-frame white-frame">
+                    <img
+                      src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80"
+                      alt="AAAN Premium Product Showcase"
+                      className="aaan-hero-main-img"
+                    />
+                    <div className="mobile-product-badges">
+                      <span className="m-badge-pill">🔥 UP TO 50% OFF TODAY</span>
+                      <span className="m-badge-pill green">⚡ 24h Express Shipping</span>
+                    </div>
+                  </div>
+                </div>
+
                 <p className="aaan-hero-subtitle dark-sub">
                   Shop handpicked luxury fashion, cutting-edge electronics, body massagers &amp; beauty essentials with 24-Hour Doorstep Express Delivery across India.
                 </p>
@@ -251,7 +267,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="aaan-hero-right">
+              <div className="aaan-hero-right desktop-only-hero-right">
                 <div className="aaan-hero-image-frame white-frame">
                   <img
                     src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80"
