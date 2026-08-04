@@ -941,177 +941,193 @@
 /* ---------- Mobile (≤ 768px) ---------- */
 @media (max-width: 768px) {
   .aaan-main-content {
-    gap: 28px;
-    padding-bottom: 40px;
+    gap: 24px;
+    padding-bottom: 32px;
   }
 
-  /* Hero Mobile Redesign (White Theme) */
   .aaan-hero-section {
-    padding-top: 8px;
+    padding-top: 4px;
   }
 
   .aaan-hero-card,
   .aaan-hero-card.hero-card-white-theme {
-    padding: 24px 18px;
-    border-radius: 24px;
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
     background: linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 60%, #EEF2FF 100%) !important;
     border: 1px solid #E2E8F0 !important;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
     text-align: center;
+    overflow: hidden !important;
   }
 
   .aaan-hero-left {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
 
   .aaan-hero-tag-badge,
   .aaan-hero-tag-badge.white-badge {
-    font-size: 0.72rem;
-    padding: 6px 14px;
-    margin-bottom: 14px;
+    font-size: 0.68rem !important;
+    padding: 5px 12px !important;
+    margin-bottom: 12px !important;
     background: #EEF2FF !important;
     border: 1px solid #C7D2FE !important;
     color: #4F46E5 !important;
     font-weight: 800;
-    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.1) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 95% !important;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08) !important;
   }
 
   .aaan-hero-title,
   .aaan-hero-title.dark-text {
-    font-size: 1.75rem;
-    line-height: 1.2;
-    margin-bottom: 12px;
+    font-size: 1.45rem !important;
+    line-height: 1.22 !important;
+    margin-bottom: 10px !important;
     color: #0F172A !important;
   }
 
   .aaan-hero-subtitle,
   .aaan-hero-subtitle.dark-sub {
-    font-size: 0.88rem;
-    line-height: 1.55;
-    margin-bottom: 20px;
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 16px !important;
     color: #475569 !important;
-    max-width: 100%;
+    max-width: 100% !important;
   }
 
   .aaan-hero-right {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 16px;
-    margin-bottom: 20px;
+    margin: 12px 0 16px !important;
   }
 
   .aaan-hero-image-frame,
   .aaan-hero-image-frame.white-frame {
     position: relative;
     width: 100%;
-    max-width: 320px;
-    border-radius: 22px;
-    padding: 6px;
+    max-width: 100% !important;
+    border-radius: 16px !important;
+    padding: 6px !important;
     background: #FFFFFF !important;
-    backdrop-filter: blur(12px);
     border: 1px solid #E2E8F0 !important;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .aaan-hero-main-img {
-    max-height: 200px;
-    width: 100%;
-    border-radius: 18px;
-    object-fit: cover;
+    max-height: 180px !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    object-fit: cover !important;
   }
 
+  /* Reset absolute offset positioning on mobile so floating badges stay inside the frame */
   .floating-badge,
   .floating-badge.white-float-badge {
-    padding: 6px 12px;
-    gap: 6px;
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(12px);
+    position: static !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 6px 4px 0 !important;
+    padding: 4px 10px !important;
+    gap: 6px !important;
+    border-radius: 50px !important;
+    background: #F8FAFC !important;
     border: 1px solid #E2E8F0 !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    box-shadow: none !important;
   }
 
   .floating-badge strong {
-    font-size: 0.72rem;
+    font-size: 0.68rem !important;
     color: #0F172A !important;
   }
 
   .floating-badge small {
-    display: none;
-  }
-
-  .badge-top-right {
-    top: -12px;
-    right: -6px;
-  }
-
-  .badge-bottom-left {
-    bottom: -12px;
-    left: -6px;
+    display: none !important;
   }
 
   .aaan-hero-actions {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 8px !important;
+    margin-bottom: 16px !important;
     width: 100%;
   }
 
   .aaan-btn-purple-primary,
-  .aaan-btn-primary {
+  .aaan-btn-primary,
+  .aaan-btn-cyan-primary,
+  .aaan-btn-gold-primary {
     justify-content: center;
-    padding: 13px 24px;
-    font-size: 0.92rem;
+    padding: 11px 20px !important;
+    font-size: 0.85rem !important;
     font-weight: 800;
     background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%) !important;
     color: #FFFFFF !important;
-    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.35) !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3) !important;
   }
 
   .aaan-btn-white-glass,
   .aaan-btn-glass {
     justify-content: center;
-    padding: 12px 24px;
-    font-size: 0.9rem;
+    padding: 10px 20px !important;
+    font-size: 0.82rem !important;
     background: #FFFFFF !important;
     color: #0F172A !important;
     border: 1px solid #CBD5E1 !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
   }
 
   .aaan-hero-metrics,
   .aaan-hero-metrics.white-metrics {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 8px;
-    padding: 10px 14px;
-    border-radius: 16px;
-    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    gap: 4px !important;
+    padding: 8px 10px !important;
+    border-radius: 14px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
     background: #FFFFFF !important;
     border: 1px solid #E2E8F0 !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
   }
 
   .metric-item {
     flex: 1;
-    min-width: 80px;
+    min-width: 0 !important;
     text-align: center;
     align-items: center;
   }
 
   .metric-item strong {
-    font-size: 1.05rem;
+    font-size: 0.92rem !important;
     color: #4F46E5 !important;
+    display: block !important;
+    white-space: nowrap !important;
   }
 
   .metric-item span {
-    font-size: 0.68rem;
+    font-size: 0.62rem !important;
     color: #64748B !important;
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
+  .metric-divider.dark-divider,
+  .metric-divider {
+    display: block !important;
+    width: 1px !important;
+    height: 24px !important;
+    background: #E2E8F0 !important;
   }
 
   /* Completely Hide AI Semantic Search Box on Mobile Screens */
