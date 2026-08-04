@@ -1059,6 +1059,12 @@
     color: #CBD5E1;
   }
 
+  /* Completely Hide AI Semantic Search Box on Mobile Screens */
+  .aaan-ai-search-hero-box,
+  .desktop-only-search-box {
+    display: none !important;
+  }
+
   /* Announcement */
   .aaan-announcement-bar {
     font-size: 0.72rem;

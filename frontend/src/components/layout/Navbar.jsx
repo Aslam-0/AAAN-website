@@ -153,16 +153,16 @@ export default function Navbar() {
       {/* Mobile Always-Visible Search Bar */}
       <div className="mobile-navbar-search-row">
         <form className="mobile-nav-search-form" onSubmit={handleSearchSubmit}>
-          <Search size={16} className="mobile-search-icon" />
+          <Sparkles size={16} color="#6366F1" className="mobile-search-icon" />
           <input
             type="text"
-            placeholder="Search products or ask AI..."
+            placeholder="✨ AI Semantic Search (e.g. Chair under 5000)..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            aria-label="Search products on mobile"
+            aria-label="AI Semantic Search on mobile"
           />
           <button type="submit" className="mobile-search-submit-btn">
-            Search
+            Search AI
           </button>
         </form>
       </div>

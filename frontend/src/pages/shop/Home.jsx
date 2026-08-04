@@ -365,8 +365,8 @@ export default function Home() {
         <section className="aaan-products-section" id="bestsellers">
           <div className="container">
             
-            {/* AI Semantic Vector Search Box */}
-            <div className="aaan-ai-search-hero-box" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #4F46E5 100%)', borderRadius: '24px', padding: '24px 32px', color: 'white', marginBottom: '32px', boxShadow: '0 10px 30px rgba(15,23,42,0.15)' }}>
+            {/* AI Semantic Vector Search Box (Desktop Only) */}
+            <div className="aaan-ai-search-hero-box desktop-only-search-box" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #4F46E5 100%)', borderRadius: '24px', padding: '24px 32px', color: 'white', marginBottom: '32px', boxShadow: '0 10px 30px rgba(15,23,42,0.15)' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Sparkles size={20} color="#FFE600" />
