@@ -903,94 +903,160 @@
     padding-bottom: 40px;
   }
 
-  /* Hero */
+  /* Hero Mobile Redesign */
   .aaan-hero-section {
-    padding-top: 12px;
+    padding-top: 8px;
   }
+
   .aaan-hero-card {
-    padding: 24px 18px;
-    border-radius: 20px;
-    box-shadow: 0 12px 32px rgba(30, 27, 75, 0.25);
+    padding: 24px 20px;
+    border-radius: 24px;
+    background: linear-gradient(160deg, #0F172A 0%, #1E1B4B 45%, #311B92 80%, #4A148C 100%);
+    border: 1px solid rgba(255, 230, 0, 0.25);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+    text-align: center;
   }
+
+  .aaan-hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aaan-hero-tag-badge {
+    font-size: 0.72rem;
+    padding: 6px 14px;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, rgba(255, 230, 0, 0.18) 0%, rgba(245, 158, 11, 0.18) 100%);
+    border: 1px solid rgba(255, 230, 0, 0.35);
+    color: #FFE600;
+    font-weight: 800;
+    box-shadow: 0 4px 14px rgba(255, 230, 0, 0.15);
+  }
+
+  .aaan-hero-title {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: #FFFFFF;
+  }
+
+  .aaan-hero-subtitle {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 20px;
+    color: #E2E8F0;
+    max-width: 100%;
+  }
+
   .aaan-hero-right {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 18px;
+    margin-top: 16px;
+    margin-bottom: 20px;
   }
+
+  .aaan-hero-image-frame {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    border-radius: 22px;
+    padding: 6px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  }
+
   .aaan-hero-main-img {
-    max-height: 200px;
+    max-height: 210px;
     width: 100%;
     border-radius: 18px;
     object-fit: cover;
   }
+
   .floating-badge {
-    padding: 6px 10px;
-    gap: 8px;
+    padding: 6px 12px;
+    gap: 6px;
+    border-radius: 50px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 230, 0, 0.4);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
+
   .floating-badge strong {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
+    color: #FFFFFF;
   }
+
   .floating-badge small {
     display: none;
   }
+
   .badge-top-right {
-    top: -8px;
+    top: -12px;
     right: -6px;
   }
+
   .badge-bottom-left {
-    bottom: -8px;
+    bottom: -12px;
     left: -6px;
   }
 
-  /* Hide AI Semantic Search Hero Box on Mobile */
-  .aaan-ai-search-hero-box {
-    display: none !important;
-  }
-  .aaan-hero-tag-badge {
-    font-size: 0.7rem;
-    padding: 5px 12px;
-    margin-bottom: 14px;
-  }
-  .aaan-hero-title {
-    font-size: 1.65rem;
-    margin-bottom: 12px;
-  }
-  .aaan-hero-subtitle {
-    font-size: 0.88rem;
-    margin-bottom: 20px;
-  }
   .aaan-hero-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    width: 100%;
   }
-  .aaan-btn-primary,
+
+  .aaan-btn-primary {
+    justify-content: center;
+    padding: 13px 24px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 50%, #6366F1 100%);
+    box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4);
+  }
+
   .aaan-btn-glass {
     justify-content: center;
-    padding: 12px 20px;
-    font-size: 0.88rem;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
+
   .aaan-hero-metrics {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 12px 14px;
-    border-radius: 14px;
+    justify-content: space-around;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 16px;
     width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
+
   .metric-item {
     flex: 1;
     min-width: 80px;
     text-align: center;
     align-items: center;
   }
+
   .metric-item strong {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
+    color: #FFE600;
   }
+
   .metric-item span {
     font-size: 0.68rem;
+    color: #CBD5E1;
   }
 
   /* Announcement */
