@@ -209,41 +209,41 @@ export default function Home() {
         {/* Hero Banner Showcase Section */}
         <section className="aaan-hero-section">
           <div className="container">
-            <div className="aaan-hero-card">
+            <div className="aaan-hero-card hero-card-white-theme">
               <div className="aaan-hero-left">
-                <div className="aaan-hero-tag-badge">
-                  <Sparkles size={16} color="#38BDF8" />
-                  <span>✨ AAAN ENTERPRISES — OFFICIAL 2026 LUXURY CATALOG</span>
+                <div className="aaan-hero-tag-badge white-badge">
+                  <Sparkles size={16} color="#6366F1" />
+                  <span>✨ AAAN ENTERPRISES — OFFICIAL STORE 2026</span>
                 </div>
-                <h1 className="aaan-hero-title">
-                  Experience Innovation &amp; <br />
-                  <span className="aaan-gradient-text-cyan">Unrivaled AAAN Luxury</span>
+                <h1 className="aaan-hero-title dark-text">
+                  Elevate Your Lifestyle With <br />
+                  <span className="aaan-gradient-text-purple">AAAN Premium Quality</span>
                 </h1>
-                <p className="aaan-hero-subtitle">
-                  Explore our premium catalog of high-fashion apparel, smart tech electronics, luxury beauty &amp; body massagers with 24-Hour Doorstep Delivery across India.
+                <p className="aaan-hero-subtitle dark-sub">
+                  Shop handpicked luxury fashion, cutting-edge electronics, body massagers &amp; beauty essentials with 24-Hour Doorstep Express Delivery across India.
                 </p>
 
                 <div className="aaan-hero-actions">
-                  <a href="#bestsellers" className="aaan-btn-cyan-primary">
-                    Explore Luxury Store <ArrowRight size={18} />
+                  <a href="#bestsellers" className="aaan-btn-purple-primary">
+                    Shop Product Catalog <ArrowRight size={18} />
                   </a>
-                  <a href="#flash-sale" className="aaan-btn-glass">
-                    <Zap size={18} color="#38BDF8" /> Today's Flash Deals
+                  <a href="#flash-sale" className="aaan-btn-white-glass">
+                    <Zap size={18} color="#F59E0B" /> Today's Flash Deals
                   </a>
                 </div>
 
                 {/* Micro Metrics */}
-                <div className="aaan-hero-metrics">
+                <div className="aaan-hero-metrics white-metrics">
                   <div className="metric-item">
                     <strong>50,000+</strong>
                     <span>Happy Customers</span>
                   </div>
-                  <div className="metric-divider" />
+                  <div className="metric-divider dark-divider" />
                   <div className="metric-item">
                     <strong>4.9 ★★★★★</strong>
                     <span>Verified Rating</span>
                   </div>
-                  <div className="metric-divider" />
+                  <div className="metric-divider dark-divider" />
                   <div className="metric-item">
                     <strong>24-Hour</strong>
                     <span>Express Dispatch</span>
@@ -252,23 +252,23 @@ export default function Home() {
               </div>
 
               <div className="aaan-hero-right">
-                <div className="aaan-hero-image-frame">
+                <div className="aaan-hero-image-frame white-frame">
                   <img
                     src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80"
-                    alt="AAAN Premium Showcase"
+                    alt="AAAN Premium Product Showcase"
                     className="aaan-hero-main-img"
                   />
                   {/* Floating Badges */}
-                  <div className="floating-badge badge-top-right">
-                    <Award size={18} color="#38BDF8" />
+                  <div className="floating-badge badge-top-right white-float-badge">
+                    <Award size={18} color="#F59E0B" />
                     <div>
                       <strong>🔥 UP TO 50% OFF TODAY</strong>
                       <small>100% Genuine Guaranteed</small>
                     </div>
                   </div>
 
-                  <div className="floating-badge badge-bottom-left">
-                    <Truck size={18} color="#34D399" />
+                  <div className="floating-badge badge-bottom-left white-float-badge">
+                    <Truck size={18} color="#10B981" />
                     <div>
                       <strong>⚡ Express Free Shipping</strong>
                       <small>Dispatched in 24 Hours</small>
