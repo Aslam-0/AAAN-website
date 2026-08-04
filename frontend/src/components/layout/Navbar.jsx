@@ -150,6 +150,23 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Always-Visible Search Bar */}
+      <div className="mobile-navbar-search-row">
+        <form className="mobile-nav-search-form" onSubmit={handleSearchSubmit}>
+          <Search size={16} className="mobile-search-icon" />
+          <input
+            type="text"
+            placeholder="Search products or ask AI..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            aria-label="Search products on mobile"
+          />
+          <button type="submit" className="mobile-search-submit-btn">
+            Search
+          </button>
+        </form>
+      </div>
+
       <ShoppingChallengesModal
         isOpen={showChallengeModal}
         onClose={() => setShowChallengeModal(false)}

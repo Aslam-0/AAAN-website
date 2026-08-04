@@ -394,8 +394,8 @@ export default function Home() {
               </form>
 
               {/* Sample Natural Language Query Chips */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.78rem', opacity: 0.8, fontWeight: 700 }}>Try Natural Queries:</span>
+              <div className="aaan-ai-search-chips-row">
+                <span className="chips-label">Try Natural Queries:</span>
                 {[
                   'Comfortable office chair for long working hours',
                   'Phone with excellent camera under 25000',

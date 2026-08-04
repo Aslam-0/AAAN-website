@@ -801,10 +801,16 @@
 @media (max-width: 1200px) {
   .aaan-hero-card {
     grid-template-columns: 1fr;
-    padding: 40px;
+    padding: 36px;
   }
   .aaan-hero-right {
-    display: none;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .aaan-hero-main-img {
+    max-height: 280px;
   }
   .aaan-products-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -834,6 +840,33 @@
   }
   .aaan-hero-subtitle {
     font-size: 0.95rem;
+  }
+  .aaan-hero-right {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .aaan-hero-main-img {
+    max-height: 240px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .floating-badge {
+    padding: 8px 12px;
+  }
+  .floating-badge strong {
+    font-size: 0.75rem;
+  }
+  .floating-badge small {
+    font-size: 0.65rem;
+  }
+  .badge-top-right {
+    top: -10px;
+    right: -10px;
+  }
+  .badge-bottom-left {
+    bottom: -10px;
+    left: -10px;
   }
   .aaan-hero-metrics {
     flex-wrap: wrap;
@@ -878,6 +911,77 @@
     padding: 24px 18px;
     border-radius: 20px;
     box-shadow: 0 12px 32px rgba(30, 27, 75, 0.25);
+  }
+  .aaan-hero-right {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 18px;
+  }
+  .aaan-hero-main-img {
+    max-height: 200px;
+    width: 100%;
+    border-radius: 18px;
+    object-fit: cover;
+  }
+  .floating-badge {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  .floating-badge strong {
+    font-size: 0.7rem;
+  }
+  .floating-badge small {
+    display: none;
+  }
+  .badge-top-right {
+    top: -8px;
+    right: -6px;
+  }
+  .badge-bottom-left {
+    bottom: -8px;
+    left: -6px;
+  }
+
+  /* Compact AI Semantic Search Hero Box on Mobile */
+  .aaan-ai-search-hero-box {
+    padding: 16px 14px !important;
+    border-radius: 18px !important;
+    margin-bottom: 20px !important;
+  }
+  .aaan-ai-search-hero-box h3 {
+    font-size: 1.02rem !important;
+  }
+  .aaan-ai-search-hero-box form {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .aaan-ai-search-hero-box input {
+    font-size: 0.85rem !important;
+    padding: 11px 14px 11px 38px !important;
+  }
+  .aaan-ai-search-hero-box button[type="submit"] {
+    width: 100% !important;
+    padding: 10px 0 !important;
+    font-size: 0.88rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .aaan-ai-search-chips-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-top: 10px !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    padding-bottom: 4px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .aaan-ai-search-chips-row button {
+    flex-shrink: 0 !important;
+    font-size: 0.72rem !important;
+    padding: 3px 10px !important;
   }
   .aaan-hero-tag-badge {
     font-size: 0.7rem;
