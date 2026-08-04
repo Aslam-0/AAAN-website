@@ -687,3 +687,72 @@
     overflow-y: auto;
   }
 }
+
+/* ---- Small Phone: ≤ 480px — compact admin header, stack cards & actions ---- */
+@media (max-width: 480px) {
+  .admin-mobile-bar {
+    padding: 8px 12px;
+  }
+
+  .admin-mobile-logo {
+    height: 28px;
+  }
+
+  .panel-content {
+    padding: 12px;
+  }
+
+  .panel-content h1 {
+    font-size: 1.25rem;
+  }
+
+  .panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 1.15rem;
+  }
+
+  .stat-card .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .data-table tr {
+    padding: 10px 12px;
+  }
+
+  .data-table td {
+    font-size: 0.82rem;
+  }
+
+  .panel-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .btn-sm, .btn-primary, .btn-secondary {
+    font-size: 0.78rem;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
