@@ -771,6 +771,31 @@ export default function ProductDetail() {
         </div>
       )}
 
+      {/* Sticky Mobile Bottom Purchase Bar */}
+      <div className="mobile-sticky-purchase-bar">
+        <div className="mobile-bar-price-info">
+          <span className="mobile-bar-lbl">Total Price</span>
+          <span className="mobile-bar-price">{formatPrice(finalPrice)}</span>
+        </div>
+
+        <div className="mobile-bar-actions">
+          <button
+            className={`mobile-btn-cart ${cartAdded ? 'added' : ''}`}
+            onClick={handleAddToCart}
+            disabled={!product.inStock}
+          >
+            {cartAdded ? <Check size={18} /> : <ShoppingBag size={18} />}
+          </button>
+          <button
+            className="mobile-btn-buy"
+            onClick={() => { handleAddToCart(); navigate('/checkout'); }}
+            disabled={!product.inStock}
+          >
+            <Zap size={18} /> Buy Now
+          </button>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
