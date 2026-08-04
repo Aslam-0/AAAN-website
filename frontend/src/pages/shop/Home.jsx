@@ -212,23 +212,23 @@ export default function Home() {
             <div className="aaan-hero-card">
               <div className="aaan-hero-left">
                 <div className="aaan-hero-tag-badge">
-                  <Sparkles size={16} color="#FFE600" />
-                  <span>✨ AAAN ENTERPRISES — LUXURY COLLECTION 2026</span>
+                  <Sparkles size={16} color="#38BDF8" />
+                  <span>✨ AAAN ENTERPRISES — OFFICIAL 2026 LUXURY CATALOG</span>
                 </div>
                 <h1 className="aaan-hero-title">
-                  Discover Unmatched Elegance &amp; <br />
-                  <span className="aaan-gradient-text-gold">Premium AAAN Quality</span>
+                  Experience Innovation &amp; <br />
+                  <span className="aaan-gradient-text-cyan">Unrivaled AAAN Luxury</span>
                 </h1>
                 <p className="aaan-hero-subtitle">
-                  Shop handpicked luxury fashion, cutting-edge electronics, premium body massagers &amp; beauty essentials with 24-Hour Doorstep Express Delivery across India.
+                  Explore our premium catalog of high-fashion apparel, smart tech electronics, luxury beauty &amp; body massagers with 24-Hour Doorstep Delivery across India.
                 </p>
 
                 <div className="aaan-hero-actions">
-                  <a href="#bestsellers" className="aaan-btn-gold-primary">
-                    Shop Luxury Range <ArrowRight size={18} />
+                  <a href="#bestsellers" className="aaan-btn-cyan-primary">
+                    Explore Luxury Store <ArrowRight size={18} />
                   </a>
                   <a href="#flash-sale" className="aaan-btn-glass">
-                    <Zap size={18} color="#FFE600" /> Today's Flash Deals
+                    <Zap size={18} color="#38BDF8" /> Today's Flash Deals
                   </a>
                 </div>
 
@@ -246,7 +246,7 @@ export default function Home() {
                   <div className="metric-divider" />
                   <div className="metric-item">
                     <strong>24-Hour</strong>
-                    <span>Doorstep Express</span>
+                    <span>Express Dispatch</span>
                   </div>
                 </div>
               </div>
@@ -260,7 +260,7 @@ export default function Home() {
                   />
                   {/* Floating Badges */}
                   <div className="floating-badge badge-top-right">
-                    <Award size={18} color="#FFE600" />
+                    <Award size={18} color="#38BDF8" />
                     <div>
                       <strong>🔥 UP TO 50% OFF TODAY</strong>
                       <small>100% Genuine Guaranteed</small>
@@ -268,7 +268,7 @@ export default function Home() {
                   </div>
 
                   <div className="floating-badge badge-bottom-left">
-                    <Truck size={18} color="#10B981" />
+                    <Truck size={18} color="#34D399" />
                     <div>
                       <strong>⚡ Express Free Shipping</strong>
                       <small>Dispatched in 24 Hours</small>
