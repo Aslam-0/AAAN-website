@@ -212,41 +212,41 @@ export default function Home() {
             <div className="aaan-hero-card">
               <div className="aaan-hero-left">
                 <div className="aaan-hero-tag-badge">
-                  <Sparkles size={15} color="#F43F5E" />
-                  <span>OFFICIAL STORE 2026</span>
+                  <Sparkles size={16} color="#FFE600" />
+                  <span>✨ AAAN ENTERPRISES — LUXURY COLLECTION 2026</span>
                 </div>
                 <h1 className="aaan-hero-title">
-                  Elevate Your Experience With <br />
-                  <span className="aaan-gradient-text">AAAN Enterprises</span>
+                  Discover Unmatched Elegance &amp; <br />
+                  <span className="aaan-gradient-text-gold">Premium AAAN Quality</span>
                 </h1>
                 <p className="aaan-hero-subtitle">
-                  Explore our premium catalog of electronics, high-fashion apparel, luxury beauty, and body massagers. Designed for quality, speed, and reliability.
+                  Shop handpicked luxury fashion, cutting-edge electronics, premium body massagers &amp; beauty essentials with 24-Hour Doorstep Express Delivery across India.
                 </p>
 
                 <div className="aaan-hero-actions">
-                  <a href="#bestsellers" className="aaan-btn-primary">
-                    Shop Catalog <ArrowRight size={18} />
+                  <a href="#bestsellers" className="aaan-btn-gold-primary">
+                    Shop Luxury Range <ArrowRight size={18} />
                   </a>
                   <a href="#flash-sale" className="aaan-btn-glass">
-                    <Zap size={18} color="#F59E0B" /> Flash Deals
+                    <Zap size={18} color="#FFE600" /> Today's Flash Deals
                   </a>
                 </div>
 
                 {/* Micro Metrics */}
                 <div className="aaan-hero-metrics">
                   <div className="metric-item">
-                    <strong>50K+</strong>
+                    <strong>50,000+</strong>
                     <span>Happy Customers</span>
                   </div>
                   <div className="metric-divider" />
                   <div className="metric-item">
-                    <strong>4.9 ★</strong>
-                    <span>Product Rating</span>
+                    <strong>4.9 ★★★★★</strong>
+                    <span>Verified Rating</span>
                   </div>
                   <div className="metric-divider" />
                   <div className="metric-item">
-                    <strong>24h</strong>
-                    <span>Express Dispatch</span>
+                    <strong>24-Hour</strong>
+                    <span>Doorstep Express</span>
                   </div>
                 </div>
               </div>
@@ -260,18 +260,18 @@ export default function Home() {
                   />
                   {/* Floating Badges */}
                   <div className="floating-badge badge-top-right">
-                    <Award size={18} color="#F59E0B" />
+                    <Award size={18} color="#FFE600" />
                     <div>
-                      <strong>Top Verified Seller</strong>
-                      <small>100% Genuine Product Guarantee</small>
+                      <strong>🔥 UP TO 50% OFF TODAY</strong>
+                      <small>100% Genuine Guaranteed</small>
                     </div>
                   </div>
 
                   <div className="floating-badge badge-bottom-left">
                     <Truck size={18} color="#10B981" />
                     <div>
-                      <strong>Free Shipping</strong>
-                      <small>Fast Delivery Across India</small>
+                      <strong>⚡ Express Free Shipping</strong>
+                      <small>Dispatched in 24 Hours</small>
                     </div>
                   </div>
                 </div>
