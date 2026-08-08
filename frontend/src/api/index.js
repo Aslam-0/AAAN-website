@@ -41,7 +41,10 @@ async function apiUpload(path, method, formData) {
   const res = await fetch(`${API_BASE}${path}`, { method, body: formData, headers });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const error = new Error(data.message || 'Upload failed');
+    const defaultMsg = res.status === 401 
+      ? 'Session expired or invalid token. Please log out and log in again.' 
+      : 'Upload failed';
+    const error = new Error(data.message || data.error || defaultMsg);
     error.status = res.status;
     error.data = data;
     throw error;
