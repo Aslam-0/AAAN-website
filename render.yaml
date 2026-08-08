@@ -1,7 +1,7 @@
 # Render Blueprint configuration for monorepo using Docker
 services:
   - type: web
-    name: glowora
+    name: aaan-website
     env: docker
     dockerfilePath: Dockerfile
     dockerContext: .
@@ -10,7 +10,15 @@ services:
     envVars:
       - key: PORT
         value: "5000"
-      - key: MONGODB_URI
-        value: "" # set via Render dashboard (secret)
       - key: NODE_ENV
         value: "production"
+      - key: MONGODB_URI
+        sync: false   # Set this secret in Render Dashboard
+      - key: JWT_SECRET
+        sync: false   # Set this secret in Render Dashboard
+      - key: CLIENT_URL
+        value: "https://aaan-website.onrender.com"
+      - key: RAZORPAY_KEY_ID
+        sync: false   # Set this secret in Render Dashboard
+      - key: RAZORPAY_KEY_SECRET
+        sync: false   # Set this secret in Render Dashboard
