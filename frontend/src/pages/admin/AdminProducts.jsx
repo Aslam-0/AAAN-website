@@ -18,15 +18,15 @@ const demoProducts = [
 ];
 
 export default function AdminProducts() {
-  const [products, setProducts] = useState(demoProducts);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const load = () => {
     fetchAdminProducts()
       .then((res) => {
-        if (Array.isArray(res) && res.length > 0) setProducts(res);
+        if (Array.isArray(res)) setProducts(res);
       })
-      .catch(() => {})
+      .catch(() => setProducts([]))
       .finally(() => setLoading(false));
   };
 

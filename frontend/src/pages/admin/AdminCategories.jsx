@@ -42,13 +42,13 @@ export default function AdminCategories() {
     setLoading(true);
     try {
       const data = await fetchAdminCategories();
-      if (Array.isArray(data) && data.length > 0) {
+      if (Array.isArray(data)) {
         setCategories(data);
       } else {
-        setCategories(demoCategories);
+        setCategories([]);
       }
     } catch {
-      setCategories(demoCategories);
+      setCategories([]);
     } finally {
       setLoading(false);
     }

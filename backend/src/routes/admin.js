@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
 import User from '../models/User.js';
@@ -112,6 +113,9 @@ router.post('/products', upload.array('images', 5), async (req, res) => {
 
     if (!name || !description || !price || !category) {
       return res.status(400).json({ message: 'Missing required fields' });
+    }
+    if (!mongoose.Types.ObjectId.isValid(category)) {
+      return res.status(400).json({ message: 'Invalid Category selected. Please select a valid Category or create a new Category first.' });
     }
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ message: 'At least one product image is required' });

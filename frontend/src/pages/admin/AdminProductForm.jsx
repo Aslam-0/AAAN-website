@@ -317,11 +317,18 @@ export default function AdminProductForm() {
               <div className="apf-group">
                 <label>Category *</label>
                 <select value={form.category} onChange={update('category')} required className="apf-select">
-                  <option value="">Select product category…</option>
+                  <option value="">
+                    {categories.length === 0 ? '⚠️ No categories found — Create one first in Category Manager' : 'Select product category…'}
+                  </option>
                   {categories.map((c) => (
                     <option key={c._id} value={c._id}>{c.name}</option>
                   ))}
                 </select>
+                {categories.length === 0 && (
+                  <div style={{ marginTop: '6px', fontSize: '0.82rem', color: '#EF4444', fontWeight: 600 }}>
+                    Please <a href="/admin/categories" target="_blank" rel="noopener noreferrer" style={{ color: '#6366F1', textDecoration: 'underline' }}>create at least one category</a> before adding products.
+                  </div>
+                )}
               </div>
 
               <div className="apf-group">
