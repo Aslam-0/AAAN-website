@@ -238,363 +238,419 @@ export default function AdminProductForm() {
   };
 
   return (
-    <div className="aaan-catalog-creator-shell">
-      {/* Luxury Hero Banner */}
-      <div className="catalog-creator-hero">
-        <div>
-          <div className="hero-hub-badge">
-            <AaanLogo size="sm" />
-            <span>AAAN Catalog Studio</span>
-          </div>
-          <h2>{isEdit ? '✏️ Edit Catalog Item' : '✨ Add New Product Catalog'}</h2>
-          <p>Create luxury product listings with automated size pickers, price calculators &amp; real-time preview.</p>
+    <div className="meesho-panel-shell">
+      {/* Top Header Summary Banner */}
+      <div className="meesho-top-header">
+        <img
+          src={previews.length > 0 ? previews[0].url : '/aaan-logo.svg'}
+          className="meesho-top-thumb"
+          alt="Product Thumbnail"
+        />
+        <div style={{ flex: 1 }}>
+          <h3 className="meesho-top-title">
+            {form.name || 'Wooden Buddha Engraved Wall Hanging Decorative Frame for Home, Office & Living Room (Brown, Rectangular) (Pack of 1)'}
+          </h3>
+          <span className="meesho-top-style-id">Style ID: {form.sku || 'AAAN-Buddha Engraved Wall 1'}</span>
         </div>
-        <div className="hero-quick-stats" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-          <button
-            type="button"
-            className="btn-ai-modal-trigger"
-            onClick={() => setShowImageEnhancerModal(true)}
-            style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)' }}
-          >
-            🎨 AI Image Studio
-          </button>
+        <div style={{ display: 'flex', gap: '8px' }}>
           <button
             type="button"
             className="btn-ai-modal-trigger"
             onClick={() => setShowAiModal(true)}
+            style={{ background: '#EEF2FF', color: '#4F46E5', border: '1px solid #C7D2FE', padding: '6px 12px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
           >
-            <Sparkles size={16} /> AI Copy Generator
+            <Sparkles size={14} /> AI Copy
           </button>
-          <div className="stat-pill">
-            <span>SKU Code</span>
-            <strong>{form.sku || 'AAAN-CAT-1001'}</strong>
-          </div>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="catalog-form-grid">
-        {error && <div className="auth-error" style={{ gridColumn: '1 / -1' }}>{error}</div>}
+      <form onSubmit={handleSubmit}>
+        {error && <div className="auth-error" style={{ marginBottom: '16px' }}>{error}</div>}
 
-        {/* Left Column — Form Control Cards */}
-        <div className="catalog-form-main">
-          
-          {/* Card 1: Basic Info */}
-          <div className="apf-card">
-            <div className="card-head-between">
-              <h3 className="card-title">📦 Basic Product Information</h3>
-              <button
-                type="button"
-                onClick={() => setShowAiModal(true)}
-                style={{
-                  background: 'linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)',
-                  color: '#4F46E5',
-                  border: '1px solid #C7D2FE',
-                  padding: '6px 14px',
-                  borderRadius: '50px',
-                  fontWeight: 800,
-                  fontSize: '0.8rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px'
-                }}
-              >
-                <Sparkles size={14} /> ✨ Auto-Generate Copy with AI
-              </button>
-            </div>
+        <div className="catalog-form-grid">
+          {/* Left Column — Product Details Forms */}
+          <div className="catalog-form-main">
             
-            <div className="apf-group">
-              <label>Catalog Product Name *</label>
-              <input
-                value={form.name}
-                onChange={update('name')}
-                required
-                placeholder="e.g. AAAN Luxury Silk Saree or Ultra Smart Watch"
-                className="apf-input-lg"
-              />
-            </div>
+            {/* Section 1: Price, Size and Inventory */}
+            <div className="meesho-card">
+              <h3 className="meesho-card-title">Product Details</h3>
+              <p style={{ fontSize: '0.85rem', fontWeight: 700, color: '#616161', margin: '-8px 0 16px' }}>Price, Size and Inventory</p>
+              
+              <div className="meesho-grid-2">
+                <div className="meesho-field">
+                  <label className="meesho-label">GST * <span className="meesho-info-icon" title="Tax Rate">i</span></label>
+                  <select value={form.gst || '5'} onChange={update('gst')} className="meesho-select">
+                    <option value="5">5</option>
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                    <option value="28">28</option>
+                  </select>
+                </div>
 
-            <div className="apf-row-2">
-              <div className="apf-group">
-                <label>Category *</label>
-                <select value={form.category} onChange={update('category')} required className="apf-select">
-                  <option value="">
-                    {categories.length === 0 ? '⚠️ No categories found — Create one first in Category Manager' : 'Select product category…'}
-                  </option>
-                  {categories.map((c) => (
-                    <option key={c._id} value={c._id}>{c.name}</option>
-                  ))}
-                </select>
-                {categories.length === 0 && (
-                  <div style={{ marginTop: '6px', fontSize: '0.82rem', color: '#EF4444', fontWeight: 600 }}>
-                    Please <a href="/admin/categories" target="_blank" rel="noopener noreferrer" style={{ color: '#6366F1', textDecoration: 'underline' }}>create at least one category</a> before adding products.
+                <div className="meesho-field">
+                  <label className="meesho-label">HSN Code * <span className="meesho-info-icon" title="Harmonized System Nomenclature">i</span></label>
+                  <div>
+                    <select value={form.hsnCode || '442090'} onChange={update('hsnCode')} className="meesho-select">
+                      <option value="442090">442090</option>
+                      <option value="9405">9405</option>
+                      <option value="8306">8306</option>
+                      <option value="6304">6304</option>
+                    </select>
+                    <a href="#hsn" onClick={(e) => { e.preventDefault(); toastSuccess('HSN Code', 'Selected HSN: 442090 (Home Decor)'); }} className="meesho-calc-link">Find Relevant HSN Code &gt;</a>
                   </div>
-                )}
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Net Weight (gms) * <span className="meesho-info-icon" title="Weight in grams">i</span></label>
+                  <input type="number" value={form.netWeight || '50'} onChange={update('netWeight')} className="meesho-input" placeholder="50" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Style code/ Product ID (optional) <span className="meesho-info-icon" title="Supplier Style ID">i</span></label>
+                  <input type="text" value={form.sku} onChange={update('sku')} className="meesho-input" placeholder="AAAN-Buddha Engraved Wall 1" />
+                </div>
+
+                <div className="meesho-field meesho-field-full">
+                  <label className="meesho-label">Product Name * <span className="meesho-info-icon" title="Catalog Title">i</span></label>
+                  <input type="text" value={form.name} onChange={update('name')} required className="meesho-input" placeholder="Wooden Buddha Engraved Wall Hanging Decorative Frame for Home, Office & Living Room (Brown, Rectangular) (Pack of 1)" />
+                </div>
+
+                <div className="meesho-field meesho-field-full">
+                  <label className="meesho-label">Category * <span className="meesho-info-icon" title="Select Category">i</span></label>
+                  <select value={form.category} onChange={update('category')} required className="meesho-select">
+                    <option value="">
+                      {categories.length === 0 ? '⚠️ No categories found — Create one first in Category Manager' : 'Select product category…'}
+                    </option>
+                    {categories.map((c) => (
+                      <option key={c._id} value={c._id}>{c.name}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              <div className="apf-group">
-                <label>SKU Code</label>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <input value={form.sku} onChange={update('sku')} placeholder="AAAN-CAT-1001" />
-                  <button type="button" onClick={generateSku} className="btn-sku-gen" title="Generate SKU">
-                    <Wand2 size={16} />
-                  </button>
+              <div className="meesho-yellow-banner">
+                <span>ⓘ</span> To increase price and modify variation details, please raise a ticket in support
+              </div>
+
+              {/* Price & Inventory Table */}
+              <div className="meesho-table-wrapper">
+                <table className="meesho-table">
+                  <thead>
+                    <tr>
+                      <th>Size</th>
+                      <th>Meesho Price* ⓘ</th>
+                      <th>Wrong/Defective Returns Price ⓘ</th>
+                      <th>Prepaid Discount ⓘ</th>
+                      <th>MRP* ⓘ</th>
+                      <th>Inventory * ⓘ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Free Size</strong></td>
+                      <td>
+                        <input type="number" value={form.price} onChange={update('price')} className="meesho-table-input" placeholder="370" required />
+                        <span className="meesho-calc-link" onClick={() => toastSuccess('Price Calculator', 'Selling price calculated based on Meesho margin.')}>Calculate your selling price</span>
+                      </td>
+                      <td>
+                        <input type="number" value={form.defectiveReturnPrice || '369'} onChange={update('defectiveReturnPrice')} className="meesho-table-input" placeholder="369" />
+                      </td>
+                      <td>
+                        <input type="text" value={form.prepaidDiscount || ''} onChange={update('prepaidDiscount')} className="meesho-table-input" placeholder="₹" />
+                      </td>
+                      <td>
+                        <input type="number" value={form.originalPrice || '1299'} onChange={update('originalPrice')} className="meesho-table-input" placeholder="1299" />
+                      </td>
+                      <td>
+                        <input type="number" value={form.stockQuantity} onChange={update('stockQuantity')} className="meesho-table-input" placeholder="40" required />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Section 2: Product Details */}
+            <div className="meesho-card">
+              <h3 className="meesho-card-title">Product Details</h3>
+
+              <div className="meesho-grid-2">
+                <div className="meesho-field">
+                  <label className="meesho-label">Color * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.color || 'Brown'} onChange={update('color')} className="meesho-select">
+                    <option value="Select">Select</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Black">Black</option>
+                    <option value="Gold">Gold</option>
+                    <option value="White">White</option>
+                    <option value="Multicolor">Multicolor</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Generic Name * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.genericName || 'Wall Decor & Hangings'} onChange={update('genericName')} className="meesho-select">
+                    <option value="Wall Decor & Hangings">Wall Decor &amp; Hangings</option>
+                    <option value="Showpiece & Idols">Showpiece &amp; Idols</option>
+                    <option value="Lighting & Lamps">Lighting &amp; Lamps</option>
+                    <option value="Cushion Covers">Cushion Covers</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Ideal For * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.idealFor || 'Bedroom'} onChange={update('idealFor')} className="meesho-select">
+                    <option value="Bedroom">Bedroom</option>
+                    <option value="Living Room">Living Room</option>
+                    <option value="Puja Room">Puja Room</option>
+                    <option value="Office">Office</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Included Components * <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.includedComponents || '1 x Wooden Wall Frame'} onChange={update('includedComponents')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Material * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.material || 'Wooden'} onChange={update('material')} className="meesho-select">
+                    <option value="Wooden">Wooden</option>
+                    <option value="Brass">Brass</option>
+                    <option value="Ceramic">Ceramic</option>
+                    <option value="Metal">Metal</option>
+                    <option value="Velvet">Velvet</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Net Quantity (N) * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.netQuantity || '1'} onChange={update('netQuantity')} className="meesho-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Product Breadth * <span className="meesho-info-icon">i</span></label>
+                  <input type="number" value={form.productBreadth || '48'} onChange={update('productBreadth')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Product Height * <span className="meesho-info-icon">i</span></label>
+                  <input type="number" value={form.productHeight || '33'} onChange={update('productHeight')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Product Length * <span className="meesho-info-icon">i</span></label>
+                  <input type="number" step="0.1" value={form.productLength || '1.5'} onChange={update('productLength')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Product Unit * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.productUnit || 'cm'} onChange={update('productUnit')} className="meesho-select">
+                    <option value="cm">cm</option>
+                    <option value="inches">inches</option>
+                    <option value="mm">mm</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Type * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.type || 'Religious'} onChange={update('type')} className="meesho-select">
+                    <option value="Religious">Religious</option>
+                    <option value="Abstract">Abstract</option>
+                    <option value="Modern">Modern</option>
+                    <option value="Traditional">Traditional</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Weight * <span className="meesho-info-icon">i</span></label>
+                  <input type="number" step="0.1" value={form.weight || '0.1'} onChange={update('weight')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Weight Unit * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.weightUnit || 'kg'} onChange={update('weightUnit')} className="meesho-select">
+                    <option value="kg">kg</option>
+                    <option value="gm">gm</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">COUNTRY OF ORIGIN * <span className="meesho-info-icon">i</span></label>
+                  <select value={form.countryOfOrigin || 'India'} onChange={update('countryOfOrigin')} className="meesho-select">
+                    <option value="India">India</option>
+                  </select>
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Manufacturer Name * <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.manufacturerName || 'AAAN'} onChange={update('manufacturerName')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Manufacturer Address <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.manufacturerAddress || 'NCR Delhi'} onChange={update('manufacturerAddress')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Manufacturer Pincode * <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.manufacturerPincode || '201013'} onChange={update('manufacturerPincode')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Packer Name * <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.packerName || 'AAAN'} onChange={update('packerName')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Packer Address <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.packerAddress || 'NCR Delhi'} onChange={update('packerAddress')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Packer Pincode <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.packerPincode || '201013'} onChange={update('packerPincode')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Importer Name <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.importerName || 'Not Required'} onChange={update('importerName')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field">
+                  <label className="meesho-label">Importer Address <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.importerAddress || 'Not Required'} onChange={update('importerAddress')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field meesho-field-full">
+                  <label className="meesho-label">Importer Pincode <span className="meesho-info-icon">i</span></label>
+                  <input type="text" value={form.importerPincode || 'Not Required'} onChange={update('importerPincode')} className="meesho-input" />
+                </div>
+
+                <div className="meesho-field meesho-field-full">
+                  <label className="meesho-label">Product Description * <span className="meesho-info-icon">i</span></label>
+                  <textarea
+                    value={form.description}
+                    onChange={update('description')}
+                    required
+                    rows={3}
+                    className="meesho-input"
+                    placeholder="Handcrafted Wooden Buddha Engraved Decorative Wall Hanging Frame..."
+                  />
                 </div>
               </div>
             </div>
-
-            <div className="apf-group">
-              <label>Detailed Description *</label>
-              <textarea
-                value={form.description}
-                onChange={update('description')}
-                required
-                rows={4}
-                placeholder="Describe product highlights, materials, features &amp; package contents…"
-              />
-            </div>
           </div>
 
-          {/* Card 2: Pricing & Discount Calculator */}
-          <div className="apf-card">
-            <h3 className="card-title">💰 Pricing &amp; Savings Calculator</h3>
-            
-            <div className="apf-row-3">
-              <div className="apf-group">
-                <label>Offer Price (₹) *</label>
-                <input type="number" step="1" min="0" value={form.price} onChange={update('price')} required placeholder="e.g. 1999" />
-              </div>
-
-              <div className="apf-group">
-                <label>Original MRP Price (₹)</label>
-                <input type="number" step="1" min="0" value={form.originalPrice} onChange={update('originalPrice')} placeholder="e.g. 2999" />
-              </div>
-
-              <div className="apf-group">
-                <label>Stock Quantity (Units)</label>
-                <input type="number" min="0" value={form.stockQuantity} onChange={update('stockQuantity')} />
-              </div>
+          {/* Right Sidebar — Image Guidelines & Image Slots */}
+          <div className="catalog-form-sidebar">
+            <div className="meesho-guide-box">
+              <span>ⓘ</span> Follow guidelines to reduce quality check failure
             </div>
 
-            {discountInfo && (
-              <div className="discount-calc-banner">
-                <Sparkles size={18} color="#10B981" />
-                <div>
-                  <strong>Customer Savings Computed:</strong>
-                  <span>Save ₹{discountInfo.saveAmt.toLocaleString()} ({discountInfo.pct}% OFF)</span>
+            <div className="meesho-image-guidelines-card">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <strong style={{ fontSize: '0.85rem', color: '#212121' }}>Image Guidelines</strong>
+                <span className="meesho-calc-link" style={{ fontSize: '0.75rem' }} onClick={() => toastSuccess('Image Guidelines', 'Always upload high resolution solo product images.')}>View Full Image Guidelines</span>
+              </div>
+
+              <ul className="meesho-guidelines-list">
+                <li>
+                  <span className="meesho-guideline-num">1</span>
+                  <span>Images with text/Watermark are not acceptable in primary images.</span>
+                </li>
+                <li>
+                  <span className="meesho-guideline-num">2</span>
+                  <span>Product image should not have any text</span>
+                </li>
+                <li>
+                  <span className="meesho-guideline-num">3</span>
+                  <span>Please add solo product image without any props.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="meesho-card">
+              <strong style={{ fontSize: '0.85rem', color: '#212121', marginBottom: '10px', display: 'block' }}>
+                Add Images with details listed here
+              </strong>
+
+              <div className="meesho-image-slots-list">
+                <div className="meesho-slot-item">
+                  <span style={{ fontWeight: 600, color: '#D32F2F' }}>Front view *</span>
+                  <span style={{ fontSize: '0.72rem', color: '#757575', marginLeft: 'auto' }}>add clear image</span>
+                </div>
+                <div className="meesho-slot-item">
+                  <span style={{ fontWeight: 600, color: '#D32F2F' }}>Close up view *</span>
+                  <span style={{ fontSize: '0.72rem', color: '#757575', marginLeft: 'auto' }}>add clear image</span>
+                </div>
+                <div className="meesho-slot-item">
+                  <span style={{ fontWeight: 600, color: '#D32F2F' }}>Dimensional view *</span>
+                  <span style={{ fontSize: '0.72rem', color: '#757575', marginLeft: 'auto' }}>add clear image with dimension</span>
                 </div>
               </div>
-            )}
 
-            <div className="apf-row-2" style={{ marginTop: '12px' }}>
-              <div className="apf-group apf-check-card">
-                <label className="apf-checkbox-label">
-                  <input type="checkbox" checked={form.bestseller} onChange={update('bestseller')} />
-                  <span>★ Mark as Bestseller Catalog (Featured Pill)</span>
-                </label>
-              </div>
-            </div>
-          </div>
+              <strong style={{ fontSize: '0.85rem', color: '#212121', marginBottom: '10px', display: 'block' }}>Images</strong>
 
-          {/* Card 3: Size & Dimension Selector */}
-          <div className="apf-card">
-            <div className="card-head-between">
-              <h3 className="card-title">📏 Size, Dimensions &amp; Pack Variants</h3>
-              <span className="cat-mode-badge" style={{ background: isHomeDecor ? '#FFF0F7' : undefined, color: isHomeDecor ? '#9f2089' : undefined }}>
-                {isHomeDecor ? '🏠 Meesho Home Decor Mode' : isClothing ? '👔 Clothes Mode (S-XXXL)' : isFurnitureOrElectronics ? '📐 Dimensions Mode (cm)' : 'Standard'}
-              </span>
-            </div>
+              {totalCount > 0 && (
+                <div className="apf-thumb-grid">
+                  {previews.map((p, i) => (
+                    <div className={`apf-thumb ${i === 0 ? 'cover' : ''}`} key={i}>
+                      <img src={p.url} alt={`Product ${i + 1}`} loading="lazy" />
+                      {i === 0 && <span className="apf-cover-badge">Front Image *</span>}
+                      <button
+                        type="button"
+                        className="apf-thumb-remove"
+                        onClick={() => removePreview(i)}
+                        aria-label="Remove image"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
 
-            <p className="apf-card-hint">
-              {isHomeDecor
-                ? 'Select Home Decor dimensions, frame sizes, or pack quantity variants:'
-                : isClothing
-                ? 'Select clothing sizes customers can choose from:'
-                : isFurnitureOrElectronics
-                ? 'Select or add dimensions in centimeters (cm):'
-                : 'Select product options available for purchase:'}
-            </p>
+              {totalCount < MAX_IMAGES && (
+                <div
+                  className="apf-dropzone"
+                  onClick={() => fileRef.current?.click()}
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={handleDrop}
+                >
+                  <div className="apf-dropzone-empty">
+                    <ImagePlus size={24} color="#5925A9" />
+                    <p className="apf-drop-title" style={{ fontSize: '0.82rem' }}>+ Add Images</p>
+                    <p className="apf-drop-hint">Up to {MAX_IMAGES} images</p>
+                  </div>
+                </div>
+              )}
 
-            <div className="apf-size-chips">
-              {(isHomeDecor
-                ? ['30 × 30 cm', '45 × 45 cm', '60 × 90 cm', '120 × 60 cm', 'Single (1 Pc)', 'Pack of 2', 'Set of 3', 'Set of 4 Pcs']
-                : isClothing
-                ? ['S', 'M', 'L', 'XL', 'XXL', 'XXXL']
-                : ['30 × 20 cm', '50 × 40 cm', '100 × 60 cm', '120 × 80 cm', '150 × 90 cm', '200 × 100 cm']
-              ).map((sz) => {
-                const active = (form.sizes || []).includes(sz);
-                return (
-                  <button
-                    type="button"
-                    key={sz}
-                    className={`apf-size-chip ${active ? 'active' : ''}`}
-                    onClick={() => toggleSize(sz)}
-                  >
-                    {sz} {active ? '✓' : '+'}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="apf-custom-size-row">
               <input
-                type="text"
-                placeholder={isHomeDecor ? 'Custom Decor size (e.g. 75 × 45 cm or Set of 6)' : isClothing ? 'Custom size (e.g. XS, Free Size)' : 'Custom size in cm (e.g. 75 × 45 cm)'}
-                value={customSizeInput}
-                onChange={(e) => setCustomSizeInput(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addCustomSize(); } }}
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                multiple
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
               />
-              <button type="button" className="btn-add-custom-size" onClick={addCustomSize}>
-                + Add Variant Option
-              </button>
-            </div>
-          </div>
-
-          {/* Card 4: Logistics & Warranty */}
-          <div className="apf-card">
-            <h3 className="card-title">🛡️ Logistics, Shipping &amp; Warranty</h3>
-            <div className="apf-row-2">
-              <div className="apf-group">
-                <label>Warranty Period</label>
-                <select value={form.warranty} onChange={update('warranty')} className="apf-select">
-                  <option value="1 Year AAAN Official Warranty">1 Year Official Warranty</option>
-                  <option value="6 Months Replacement Warranty">6 Months Replacement Warranty</option>
-                  <option value="3 Months Limited Warranty">3 Months Warranty</option>
-                  <option value="No Warranty (Tested genuine)">No Warranty (Standard)</option>
-                </select>
-              </div>
-
-              <div className="apf-group">
-                <label>Fulfillment Shipping</label>
-                <select value={form.shippingType} onChange={update('shippingType')} className="apf-select">
-                  <option value="Free Express Shipping">Free Same-Day Express Dispatch</option>
-                  <option value="Standard Ground Courier">Standard Ground Courier</option>
-                  <option value="COD Supported">Cash on Delivery Supported</option>
-                </select>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column — Media Upload & Live Storefront Preview */}
-        <div className="catalog-form-sidebar">
-          
-          {/* Media Upload Card */}
-          <div className="apf-card">
-            <div className="card-head-between">
-              <h3 className="card-title">📸 Catalog Gallery</h3>
-              <span className="apf-count">{totalCount} / {MAX_IMAGES}</span>
-            </div>
-
-            {totalCount > 0 && (
-              <div className="apf-thumb-grid">
-                {previews.map((p, i) => (
-                  <div className={`apf-thumb ${i === 0 ? 'cover' : ''}`} key={i}>
-                    <img src={p.url} alt={`Product ${i + 1}`} loading="lazy" />
-                    {i === 0 && <span className="apf-cover-badge">Primary</span>}
-                    <button
-                      type="button"
-                      className="apf-thumb-remove"
-                      onClick={() => removePreview(i)}
-                      aria-label="Remove image"
-                    >
-                      <X size={14} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {totalCount < MAX_IMAGES && (
-              <div
-                className="apf-dropzone"
-                onClick={() => fileRef.current?.click()}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleDrop}
-              >
-                <div className="apf-dropzone-empty">
-                  <ImagePlus size={32} color="#6366F1" />
-                  <p className="apf-drop-title">Drag images or click to upload</p>
-                  <p className="apf-drop-hint">Up to {MAX_IMAGES} images · WebP, JPG, PNG</p>
-                </div>
-              </div>
-            )}
-
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              multiple
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-            />
-
-            {totalCount < MAX_IMAGES && (
-              <button
-                type="button"
-                className="apf-browse-btn"
-                onClick={() => fileRef.current?.click()}
-              >
-                <Upload size={16} /> {totalCount === 0 ? 'Upload Catalog Images' : 'Add More Photos'}
-              </button>
-            )}
-          </div>
-
-          {/* Real-Time Storefront Card Preview */}
-          <div className="apf-card preview-card-wrapper">
-            <h3 className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Eye size={18} color="#10B981" /> Live Storefront Card Preview
-            </h3>
-
-            <div className="storefront-preview-card">
-              <div className="preview-img-box">
-                <img
-                  src={previews.length > 0 ? previews[0].url : '/aaan-logo.svg'}
-                  alt="Live Preview"
-                  loading="lazy"
-                />
-                {discountInfo && (
-                  <span className="preview-save-tag">-{discountInfo.pct}%</span>
-                )}
-                {form.bestseller && (
-                  <span className="preview-bestseller-tag">★ BESTSELLER</span>
-                )}
-              </div>
-
-              <div className="preview-body">
-                <span className="preview-cat">{selectedCatObj?.name || 'Category'}</span>
-                <h4 className="preview-title">{form.name || 'Catalog Product Name'}</h4>
-
-                <div className="preview-price-row">
-                  <span className="preview-price">{formatPrice(form.price || 0)}</span>
-                  {form.originalPrice && (
-                    <span className="preview-orig-price">{formatPrice(form.originalPrice)}</span>
-                  )}
-                </div>
-
-                {(form.sizes || []).length > 0 && (
-                  <div className="preview-sizes-list">
-                    {(form.sizes || []).map((sz) => (
-                      <span key={sz} className="preview-size-pill">{sz}</span>
-                    ))}
-                  </div>
-                )}
-
-                <div className="preview-cta-btn">View Product Details</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Submit Action Bar */}
-          <div className="apf-card actions-card">
-            <button type="submit" className="btn-publish-catalog" disabled={loading}>
-              {loading ? 'Publishing…' : isEdit ? '✓ Update Catalog Item' : '✨ Publish Catalog Item'}
-            </button>
-            <button type="button" className="btn-cancel-catalog" onClick={() => navigate('/admin/products')}>
-              Cancel
-            </button>
-          </div>
-
+        {/* Meesho Sticky Bottom Action Bar */}
+        <div className="meesho-sticky-footer">
+          <button type="button" className="btn-meesho-discard" onClick={() => navigate('/admin/products')}>
+            Discard and Go Back
+          </button>
+          <button type="submit" className="btn-meesho-submit" disabled={loading}>
+            {loading ? 'Submitting...' : 'Submit Request'}
+          </button>
         </div>
       </form>
 
