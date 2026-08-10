@@ -8,12 +8,15 @@ import '../../styles/Panel.css';
 import './AdminCategories.css';
 
 const categoryPresets = [
+  { name: 'Home Decor & Wall Art', icon: '🏠' },
+  { name: 'Lighting, Lamps & Candles', icon: '🕯️' },
+  { name: 'Cushions, Curtains & Bedding', icon: '🛋️' },
+  { name: 'Idols, Showpieces & Vases', icon: '🏺' },
+  { name: 'Mirrors & Wall Clocks', icon: '🪞' },
+  { name: 'Kitchenware & Dining Decor', icon: '🍳' },
+  { name: 'Planters & Garden Decor', icon: '🪴' },
   { name: 'Clothes & Fashion', icon: '👔' },
-  { name: 'Furniture & Living', icon: '🪑' },
-  { name: 'Electronics & Tech', icon: '⚡' },
-  { name: 'Beauty & Skincare', icon: '💄' },
-  { name: 'Massagers & Health', icon: '💆‍♂️' },
-  { name: 'Bags & Accessories', icon: '🎒' }
+  { name: 'Electronics & Tech', icon: '⚡' }
 ];
 
 export default function AdminCategories() {
@@ -28,10 +31,10 @@ export default function AdminCategories() {
   const fileRef = useRef(null);
 
   const demoCategories = [
-    { _id: 'cat-1', name: 'Clothes & Fashion', imageUrl: '/aaan-logo.svg', productCount: 42 },
-    { _id: 'cat-2', name: 'Furniture & Living', imageUrl: '/aaan-logo.svg', productCount: 18 },
-    { _id: 'cat-3', name: 'Electronics & Tech', imageUrl: '/aaan-logo.svg', productCount: 29 },
-    { _id: 'cat-4', name: 'Beauty & Skincare', imageUrl: '/aaan-logo.svg', productCount: 34 }
+    { _id: 'cat-1', name: 'Home Decor & Wall Art', imageUrl: '/aaan-logo.svg', productCount: 42 },
+    { _id: 'cat-2', name: 'Lighting, Lamps & Candles', imageUrl: '/aaan-logo.svg', productCount: 28 },
+    { _id: 'cat-3', name: 'Cushions, Curtains & Bedding', imageUrl: '/aaan-logo.svg', productCount: 35 },
+    { _id: 'cat-4', name: 'Idols, Showpieces & Vases', imageUrl: '/aaan-logo.svg', productCount: 19 }
   ];
 
   useEffect(() => {

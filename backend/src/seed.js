@@ -11,11 +11,13 @@ function slugify(name) {
 }
 
 const DEFAULT_CATEGORIES = [
-  'Skincare',
+  'Home Decor & Wall Art',
+  'Lighting, Lamps & Candles',
+  'Cushions, Curtains & Bedding',
+  'Idols, Showpieces & Vases',
+  'Kitchenware & Dining Decor',
+  'Skincare & Beauty',
   'Wellness & Massage',
-  'Hair Care',
-  'Body',
-  'Fragrance',
 ];
 
 const BLOGS_TO_SEED = [

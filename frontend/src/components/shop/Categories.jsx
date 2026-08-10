@@ -1,17 +1,19 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Wind, Droplets, Flower2, Hand, Grid2x2 } from 'lucide-react';
+import { Sparkles, Wind, Droplets, Flower2, Hand, Grid2x2, Home, Lamp, Sofa, Frame, Utensils } from 'lucide-react';
 import { fetchCategories } from '../../api';
 import CategoryCard from '../product/CategoryCard';
 import './Categories.css';
 
 // Icon map — assigned to DB categories by name match so chips always show icons
 const ICON_MAP = [
-  { pattern: /skin|face|glow/i,      icon: Sparkles },
-  { pattern: /wellness|relax|massag/i, icon: Wind },
-  { pattern: /hair/i,                icon: Droplets },
-  { pattern: /body/i,                icon: Flower2 },
-  { pattern: /fragrance|perfume/i,   icon: Hand },
+  { pattern: /home|decor|wall/i,        icon: Home },
+  { pattern: /light|lamp|candle/i,      icon: Lamp },
+  { pattern: /cushion|curtain|bed/i,    icon: Sofa },
+  { pattern: /idol|showpiece|vase|clock|mirror/i, icon: Frame },
+  { pattern: /kitchen|dining/i,         icon: Utensils },
+  { pattern: /skin|face|glow/i,         icon: Sparkles },
+  { pattern: /wellness|relax|massag/i,  icon: Wind },
 ];
 
 function getIcon(name) {

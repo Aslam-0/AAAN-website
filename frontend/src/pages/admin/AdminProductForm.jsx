@@ -47,12 +47,13 @@ export default function AdminProductForm() {
   const selectedCatObj = categories.find((c) => c._id === form.category);
   const catName = (selectedCatObj?.name || '').toLowerCase();
 
+  const isHomeDecor = catName.includes('home') || catName.includes('decor') || catName.includes('light') || catName.includes('curtain') || catName.includes('cushion') || catName.includes('showpiece') || catName.includes('vase') || catName.includes('mirror') || catName.includes('clock') || catName.includes('art') || catName.includes('idol') || catName.includes('kitchen') || catName.includes('planter') || catName.includes('bed');
   const isClothing = catName.includes('cloth') || catName.includes('fashion') || catName.includes('apparel') || catName.includes('wear') || catName.includes('shirt') || catName.includes('pant') || catName.includes('dress');
-  const isFurnitureOrElectronics = catName.includes('furniture') || catName.includes('electron') || catName.includes('tech') || catName.includes('home') || catName.includes('appliance') || catName.includes('living') || catName.includes('wellness');
+  const isFurnitureOrElectronics = catName.includes('furniture') || catName.includes('electron') || catName.includes('tech') || catName.includes('appliance') || catName.includes('living') || catName.includes('wellness');
 
   const generateSku = () => {
     const randomCode = Math.floor(1000 + Math.random() * 9000);
-    const prefix = isClothing ? 'AAAN-CLT' : isFurnitureOrElectronics ? 'AAAN-TEC' : 'AAAN-CAT';
+    const prefix = isHomeDecor ? 'MEESHO-DECOR' : isClothing ? 'AAAN-CLT' : isFurnitureOrElectronics ? 'AAAN-TEC' : 'AAAN-CAT';
     const sku = `${prefix}-${randomCode}`;
     setForm((prev) => ({ ...prev, sku }));
     toastSuccess('SKU Generated', `Assigned code ${sku}`);
@@ -398,14 +399,16 @@ export default function AdminProductForm() {
           {/* Card 3: Size & Dimension Selector */}
           <div className="apf-card">
             <div className="card-head-between">
-              <h3 className="card-title">📏 Size Options &amp; Measurement Guide</h3>
-              <span className="cat-mode-badge">
-                {isClothing ? '👔 Clothes Mode (S-XXXL)' : isFurnitureOrElectronics ? '📐 Dimensions Mode (cm)' : 'Standard'}
+              <h3 className="card-title">📏 Size, Dimensions &amp; Pack Variants</h3>
+              <span className="cat-mode-badge" style={{ background: isHomeDecor ? '#FFF0F7' : undefined, color: isHomeDecor ? '#9f2089' : undefined }}>
+                {isHomeDecor ? '🏠 Meesho Home Decor Mode' : isClothing ? '👔 Clothes Mode (S-XXXL)' : isFurnitureOrElectronics ? '📐 Dimensions Mode (cm)' : 'Standard'}
               </span>
             </div>
 
             <p className="apf-card-hint">
-              {isClothing
+              {isHomeDecor
+                ? 'Select Home Decor dimensions, frame sizes, or pack quantity variants:'
+                : isClothing
                 ? 'Select clothing sizes customers can choose from:'
                 : isFurnitureOrElectronics
                 ? 'Select or add dimensions in centimeters (cm):'
@@ -413,7 +416,9 @@ export default function AdminProductForm() {
             </p>
 
             <div className="apf-size-chips">
-              {(isClothing
+              {(isHomeDecor
+                ? ['30 × 30 cm', '45 × 45 cm', '60 × 90 cm', '120 × 60 cm', 'Single (1 Pc)', 'Pack of 2', 'Set of 3', 'Set of 4 Pcs']
+                : isClothing
                 ? ['S', 'M', 'L', 'XL', 'XXL', 'XXXL']
                 : ['30 × 20 cm', '50 × 40 cm', '100 × 60 cm', '120 × 80 cm', '150 × 90 cm', '200 × 100 cm']
               ).map((sz) => {
@@ -434,13 +439,13 @@ export default function AdminProductForm() {
             <div className="apf-custom-size-row">
               <input
                 type="text"
-                placeholder={isClothing ? 'Custom size (e.g. XS, Free Size)' : 'Custom size in cm (e.g. 75 × 45 cm)'}
+                placeholder={isHomeDecor ? 'Custom Decor size (e.g. 75 × 45 cm or Set of 6)' : isClothing ? 'Custom size (e.g. XS, Free Size)' : 'Custom size in cm (e.g. 75 × 45 cm)'}
                 value={customSizeInput}
                 onChange={(e) => setCustomSizeInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addCustomSize(); } }}
               />
               <button type="button" className="btn-add-custom-size" onClick={addCustomSize}>
-                + Add Size Option
+                + Add Variant Option
               </button>
             </div>
           </div>
